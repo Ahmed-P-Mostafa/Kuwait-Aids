@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">StudentAid</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_your_registration_recipe_and_your_application">choose your registration recipe and your application</string>
+    <string name="student">Student</string>
+    <string name="university_employee">University Employee</string>
+    <string name="employee_of_the_ministry_of_higher_education">Employee of the ministry of higher education</string>
+    <string name="please_fill_in_your_information_to_launch_your_profile_get_started"><![CDATA[Please fill in your information to launch your profile & get started]]></string>
+    <string name="birthday">Birthday *</string>
+    <string name="first_name">First name *</string>
+    <string name="last_name">Last name *</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="hello_friend">Hello Friend,</string>
+    <string name="cardNumber">ID Card number *</string>
+    <string name="passport">Passport *</string>
+    <string name="gender">Gender *</string>
+    <string name="universityNumber">University number *</string>
+    <string name="email">Email address *</string>
+    <string name="phoneNumber">phone number *</string>
+    <string name="nationality">Nationality *</string>
+    <string name="motherNationality">Mother Nationality *</string>
+    <string name="title">Title *</string>
+    <string name="password">Password *</string>
+
+    <string-array name="genders">
+        <item name="gender">Gender</item>
+        <item name="male">Male</item>
+        <item name="female">Female</item>
+    </string-array>
+</resources>
