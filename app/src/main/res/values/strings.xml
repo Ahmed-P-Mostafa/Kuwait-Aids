@@ -22,10 +22,19 @@
     <string name="motherNationality">Mother Nationality *</string>
     <string name="title">Title *</string>
     <string name="password">Password *</string>
+    <string name="proceed">Proceed</string>
+    <string name="datePicker">datePicker</string>
+    <string name="send">Send</string>
 
     <string-array name="genders">
         <item name="gender">Gender</item>
         <item name="male">Male</item>
         <item name="female">Female</item>
+    </string-array>
+    <string-array name="university_degrees">
+        <item>Choose your degree…</item>
+        <item>Civil Engineering</item>
+        <item>School of medicine</item>
+        <item>School of law</item>
     </string-array>
 </resources>

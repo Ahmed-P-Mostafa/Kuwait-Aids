@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1066263653496",
+    "project_id": "kuwait-e475f",
+    "storage_bucket": "kuwait-e475f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066263653496:android:52bfa80c24ee8966f6518d",
+        "android_client_info": {
+          "package_name": "com.example.studentaid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066263653496-cgn456ie9sbkb36vn078hpsqlb721apr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studentaid",
+            "certificate_hash": "347637297de216d534c1254a3816bea1e7686dd0"
+          }
+        },
+        {
+          "client_id": "1066263653496-7bcsif4c53if3dcga542ipmjp7kr0c6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWay470xytTZIUnFkrwswfBaCk7t4YjFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066263653496-7bcsif4c53if3dcga542ipmjp7kr0c6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
