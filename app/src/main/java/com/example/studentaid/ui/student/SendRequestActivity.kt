@@ -10,11 +10,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.studentaid.R
 import com.example.studentaid.base.BaseActivity
-import com.example.studentaid.data.Document
-import com.example.studentaid.data.onlineDatabase.OnlineDatabase
+import com.example.studentaid.data.models.Document
 import com.example.studentaid.data.onlineDatabase.StudentDao
-import com.example.studentaid.ui.LandingActivity
-import com.example.studentaid.ui.SplashActivity
 import com.example.studentaid.utils.Constants
 import com.example.studentaid.utils.Utils
 import com.google.android.gms.tasks.OnCompleteListener

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/availableJobsFragment"
+        android:title="Available jobs"
+        android:icon="@drawable/ic_follow_request"/>
+    <item
+        android:id="@+id/courseFragment"
+        android:title="Courses"
+        android:icon="@drawable/ic_graduate_cap"/>
+    <item
+        android:id="@+id/professionalDegreeFragment"
+        android:title="Professional Degree"
+        android:icon="@drawable/ic_bag"/>
+    <item
+        android:id="@+id/notification"
+        android:onClick="notifications"
+        android:title="Notifications"
+        android:icon="@drawable/ic_notifications"/>
+    <item
+        android:id="@+id/logout"
+        android:title="Log out"
+        android:icon="@drawable/ic_logout"
+        android:onClick="logoutGraduate"/>
+
+</menu>

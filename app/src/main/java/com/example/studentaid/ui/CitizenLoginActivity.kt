@@ -1,14 +1,11 @@
 package com.example.studentaid.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Switch
 import com.example.studentaid.R
 import com.example.studentaid.base.BaseActivity
-import com.example.studentaid.data.Student
-import com.example.studentaid.data.onlineDatabase.OnlineDatabase
+import com.example.studentaid.data.models.Student
 import com.example.studentaid.data.onlineDatabase.StudentDao
 import com.example.studentaid.ui.graduate.HomeGraduateActivity
 import com.example.studentaid.ui.student.HomeStudentActivity

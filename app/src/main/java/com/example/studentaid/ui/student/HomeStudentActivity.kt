@@ -2,7 +2,6 @@ package com.example.studentaid.ui.student
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -11,23 +10,16 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.studentaid.R
 import com.example.studentaid.base.BaseActivity
-import com.example.studentaid.data.Student
+import com.example.studentaid.data.models.Student
 import com.example.studentaid.data.onlineDatabase.StudentDao
 import com.example.studentaid.ui.LandingActivity
-import com.example.studentaid.ui.SplashActivity
 import com.example.studentaid.utils.Constants
 import com.example.studentaid.utils.Utils
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.material.internal.NavigationMenuView
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_home_student.*
-import kotlinx.android.synthetic.main.activity_home_student.view.*
-import kotlinx.android.synthetic.main.header_layout.*
 
 class HomeStudentActivity : BaseActivity() {
     private val TAG = "HomeStudentActivity"
@@ -45,9 +37,9 @@ class HomeStudentActivity : BaseActivity() {
 
 
         checkForRequest()
-        navController = findNavController(R.id.fragment)
+        navController = findNavController(R.id.fragment_student_nav_host)
         drawerLayout = findViewById(R.id.studentDrawer)
-        navigationView = findViewById(R.id.nav_view)
+        navigationView = findViewById(R.id.graduate_nav_view)
 
         navigationView.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
@@ -76,12 +68,13 @@ class HomeStudentActivity : BaseActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.fragment)
+        val navController = findNavController(R.id.fragment_student_nav_host)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
 
     fun logout(item: MenuItem) {
+        drawerLayout.closeDrawer(GravityCompat.START)
         showDialog(title = "Confirmation pop-up",message = "Are you sure want to Log out ?",posButton = "Yes",posAction = { dialogInterface: DialogInterface, i: Int ->
             Utils.logOutUserFromSharedPreefrences(this)
             auth.signOut()

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graduate_nav"
+
+    app:startDestination="@id/availableJobsFragment">
+
+    <fragment
+        android:id="@+id/availableJobsFragment"
+        android:name="com.example.studentaid.ui.graduate.AvailableJobsFragment"
+        android:label="fragment_available_jobs"
+        tools:layout="@layout/fragment_available_jobs">
+        <action
+            android:id="@+id/action_availableJobsFragment_to_jobDetailsFragment"
+            app:destination="@id/jobDetailsFragment"
+            app:popUpTo="@id/availableJobsFragment"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/courseFragment"
+        android:name="com.example.studentaid.ui.graduate.CourseFragment"
+        android:label="fragment_course"
+        tools:layout="@layout/fragment_course" />
+    <fragment
+        android:id="@+id/professionalDegreeFragment"
+        android:name="com.example.studentaid.ui.graduate.ProfessionalDegreeFragment"
+        android:label="fragment_professional_degree"
+        tools:layout="@layout/fragment_professional_degree" />
+    <fragment
+        android:id="@+id/jobDetailsFragment"
+        android:name="com.example.studentaid.ui.graduate.JobDetailsFragment"
+        android:label="fragment_job_details"
+        tools:layout="@layout/fragment_job_details">
+        <argument
+            android:name="job"
+            app:argType="com.example.studentaid.data.models.Job" />
+        <action
+            app:destination="@id/availableJobsFragment"
+            android:id="@+id/popUpToParent"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/availableJobsFragment"/>
+    </fragment>
+</navigation>

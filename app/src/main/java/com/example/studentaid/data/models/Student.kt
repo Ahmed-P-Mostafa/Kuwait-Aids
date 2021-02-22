@@ -1,7 +1,4 @@
-package com.example.studentaid.data
-
-import com.example.studentaid.ui.student.HomeStudentActivity
-import com.example.studentaid.utils.ICitizen
+package com.example.studentaid.data.models
 
 data class Student(val firstName:String?=null,
                    val lastName:String?=null,
@@ -18,10 +15,4 @@ data class Student(val firstName:String?=null,
                    , val condition:String?=null
                    , var documentList :List<Document>?= mutableListOf()
                    , var universityDegree :String?=null
-                   , var id :String?=null) : ICitizen() {
-
-    override fun getCitizenType():Class<*> {
-        return HomeStudentActivity::class.java
-
-    }
-}
+                   , var id :String?=null)

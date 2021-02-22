@@ -10,8 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.example.studentaid.R
 import com.example.studentaid.base.BaseActivity
-import com.example.studentaid.data.Document
-import com.example.studentaid.data.Student
+import com.example.studentaid.data.models.Document
+import com.example.studentaid.data.models.Student
 import com.example.studentaid.data.onlineDatabase.StudentDao
 import com.example.studentaid.databinding.ActivityRegisterStudentBinding
 import com.example.studentaid.ui.graduate.HomeGraduateActivity
@@ -116,6 +116,9 @@ class RegisterStudentActivity : BaseActivity() {
     }
     private fun validateStudent(student: Student){
         Log.d(TAG, "validateStudent: ")
+        Log.d(TAG, "validateStudent: id: ${student.id}")
+        Log.d(TAG, "validateStudent: condition : ${student.condition}")
+        Log.d(TAG, "validateStudent: title :  ${student.title}")
         StudentDao.insertStudentInDatabase(student, onCompleteListener = OnCompleteListener {
             if (it.isSuccessful) {
                 Log.d(TAG, "validateStudent: successful")

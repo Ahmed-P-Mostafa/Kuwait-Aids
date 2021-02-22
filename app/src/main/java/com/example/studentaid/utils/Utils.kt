@@ -5,8 +5,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.studentaid.data.Document
-import com.example.studentaid.data.Student
+import com.example.studentaid.data.models.Document
+import com.example.studentaid.data.models.Student
 
 object Utils {
     private const val TAG = "Utils"

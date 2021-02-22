@@ -4,7 +4,8 @@
     android:layout_height="120dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="18dp">
+    android:padding="18dp"
+    android:backgroundTint="@android:color/white">
     <ImageView
         android:id="@+id/iv_header"
         android:layout_width="60dp"
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toTopOf="@id/iv_header"
         app:layout_constraintBottom_toTopOf="@id/tvEmail"
         android:layout_marginStart="20dp"
-        tools:text="Ahmed Mostafa"
+        android:text="Ahmed Mostafa"
         />
     <TextView
         android:id="@+id/tvEmail"
@@ -32,6 +33,6 @@
         app:layout_constraintStart_toStartOf="@id/tvName"
         app:layout_constraintBottom_toBottomOf="@id/iv_header"
         app:layout_constraintTop_toBottomOf="@id/tvName"
-        tools:text="Example.Email@gmail.com"/>
+        android:text="Example.Email@gmail.com"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

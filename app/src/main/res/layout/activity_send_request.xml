@@ -6,7 +6,7 @@
     <data>
         <variable
             name="p"
-            type="com.example.studentaid.data.Student" />
+            type="com.example.studentaid.data.models.Student" />
         <import type="android.view.View"/>
 
     </data>

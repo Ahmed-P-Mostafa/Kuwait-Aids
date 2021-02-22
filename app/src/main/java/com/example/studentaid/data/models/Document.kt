@@ -1,4 +1,4 @@
-package com.example.studentaid.data
+package com.example.studentaid.data.models
 
 import android.net.Uri
 
