@@ -36,10 +36,11 @@ class HomeStudentActivity : BaseActivity() {
         setContentView(R.layout.activity_home_student)
 
 
-        checkForRequest()
+
         navController = findNavController(R.id.fragment_student_nav_host)
         drawerLayout = findViewById(R.id.studentDrawer)
-        navigationView = findViewById(R.id.graduate_nav_view)
+        navigationView = findViewById(R.id.nav_view)
+        checkForRequest()
 
         navigationView.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)

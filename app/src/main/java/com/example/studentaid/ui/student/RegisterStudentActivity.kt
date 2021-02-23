@@ -25,7 +25,7 @@ class RegisterStudentActivity : BaseActivity() {
     private val TAG = "RegisterActivity"
     private lateinit var student: Student
 
-    val person = Student(
+ /*   val person = Student(
         "ahmed",
         "ghorab",
         "female",
@@ -39,7 +39,7 @@ class RegisterStudentActivity : BaseActivity() {
         "Kuwaiti",
         "Graduate",
         Constants.CONDITION_NULL
-    )
+    )*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +68,11 @@ class RegisterStudentActivity : BaseActivity() {
         //TODO modify this dummy method
         showLoader("Signing Up...")
         Log.d(TAG, "signUp: ${isDataValid()}")
-        if (true){
+        if (isDataValid()){
             Log.d(TAG, "signUp: ")
-            auth.createUserWithEmailAndPassword(person.emailAddress.toString(), "1234567890").addOnCompleteListener {
+         /*   //(etEmail.text.toString(),etPassword.text.toString())
+            //("ahmed@gmail.com","1234567890")*/
+            auth.createUserWithEmailAndPassword(etEmail.text.toString(),etPassword.text.toString()).addOnCompleteListener {
                 if (it.isSuccessful){
 
                     Log.d(TAG, "signUp: successful")
@@ -78,8 +80,8 @@ class RegisterStudentActivity : BaseActivity() {
                     student = fetchStudentData()
                     student.id = it.result?.user?.uid
                     //todo modify student instead of person
-                    person.id = it.result?.user?.uid
-                    validateStudent(person)
+                  //  person.id = it.result?.user?.uid
+                    validateStudent(student)
                 }else{
                     Log.d(TAG, "signUp: ${it.exception?.localizedMessage}")
                     Toast.makeText(this,"sign up failed",Toast.LENGTH_SHORT).show()
@@ -87,7 +89,9 @@ class RegisterStudentActivity : BaseActivity() {
                 }
             }
         }else{
-            Toast.makeText(this,"not true",Toast.LENGTH_SHORT).show()
+            hideLoader()
+            showMessage("Please fulfill data properly")
+            //Toast.makeText(this,"not true",Toast.LENGTH_SHORT).show()
 
         }
 

@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -36,8 +38,9 @@ import kotlinx.android.synthetic.main.fragment_available_jobs.*
 
 class AvailableJobsFragment : Fragment() {
     private val TAG = "AvailableJobsFragment"
-    private lateinit var adapter : GraduateJobsAdapter
-    private lateinit var jobsList :MutableList<Job>
+    private var adapter = GraduateJobsAdapter(null)
+    private var jobsList = mutableListOf<Job>()
+    var degree = MutableLiveData<String>()
   /*   lateinit var navHostFragment: NavHostFragment
      lateinit var navController: NavController*/
 
@@ -62,20 +65,26 @@ class AvailableJobsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        adapter.changeData(jobsList)
+        //adapter.changeData(jobsList)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
      //   navHostFragment =parentFragmentManager.findFragmentById(R.id.fragment_graduate_nav_host) as NavHostFragment
        // navController = navHostFragment.navController
+        graduateJobsRecyclerView.adapter = adapter
 
+        degree.observe(viewLifecycleOwner, Observer {
+            adapter.changeData(getAppropriateJobs(it))
+        })
         dummyJobs()
-        jobsList = mutableListOf()
-        adapter = GraduateJobsAdapter(jobsList)
         checkForUniversityDegree()
 
-        graduateJobsRecyclerView.adapter = adapter
+        //adapter.changeData(jobsList)
+
+
+
+
         adapter.setOnJobClickListener(object : GraduateJobsAdapter.OnJobClickListener {
             override fun onJobClicked(job: Job) {
                 Log.d("AvailableJobsFragment", "onJobClicked: ${job.occupation}")
@@ -94,25 +103,25 @@ class AvailableJobsFragment : Fragment() {
         Log.d(TAG, "checkForRequest: get userFrom shared preferences")
         //    val person = Utils.getUserFromSharedPreferences(this)
         StudentDao.getStudentFromFireStore(FirebaseAuth.getInstance().currentUser?.uid!!, OnSuccessListener {
-            Log.d(TAG, "onCreate: succed")
+            Log.e(TAG, "onCreate: succed")
             student = it.toObject(Student::class.java)!!
-            Log.d(TAG, "onCreate: ${student?.universityDegree}")
+            Log.e(TAG, "onCreate: ${student?.universityDegree}")
             if (student?.universityDegree.equals(null)){
                 Log.d(TAG, "checkForRequest: ${student?.condition}")
                 //showSpinnerDialog()
                 showMaterialDialog()
             }
             else{
-               jobsList =  getAppropriateJobs(student?.universityDegree!!)
-                adapter.changeData(jobsList)
+
+                adapter.changeData(getAppropriateJobs(student?.universityDegree!!))
             }
         })
     }
 
-    private fun showJobsList() {
+ /*   private fun showJobsList() {
         adapter.changeData(getAppropriateJobs(student?.universityDegree!!))
 
-    }
+    }*/
 
     private fun showMaterialDialog(){
         val items = arrayOf("Engineering School", "Medicine School", "Law School")
@@ -121,7 +130,10 @@ class AvailableJobsFragment : Fragment() {
             .setTitle("Determine your university degree")
             .setItems(items) { dialog, which ->
                 // Respond to item chosen
+              //  degree.value = items[which]
                 Toast.makeText(requireContext(), items[which].toString(), Toast.LENGTH_LONG).show()
+                //jobsList = getAppropriateJobs(items[which])
+                //showJobsList()
                 updateGraduateDegree(items[which])
             }
             .setCancelable(false)
@@ -129,24 +141,29 @@ class AvailableJobsFragment : Fragment() {
     }
 
     private fun updateGraduateDegree(updatedDegree:String){
+
         StudentDao.updateGraduateDegree(FirebaseAuth.getInstance().currentUser?.uid!!,updatedDegree, OnCompleteListener {
             if (it.isSuccessful){
-                jobsList = getAppropriateJobs(updatedDegree)
-                showJobsList()
+                adapter.changeData( getAppropriateJobs(updatedDegree))
+              //  showJobsList()
             }
         })
     }
-    private fun getAppropriateJobs(universityDegree:String)=
-        when(universityDegree){
-            "Civil Engineering"->{
-                engineeringJobsList
-            }
-            "Medicine School"->{
-                medicineJobsList
-            }
-            else ->lawJobsList
-
+    private fun getAppropriateJobs(universityDegree:String):MutableList<Job> {
+        return if (universityDegree=="Engineering School"){
+            engineeringJobsList
+        }else if(universityDegree=="Medicine School"){
+            medicineJobsList
         }
+        else if(universityDegree=="Law School"){
+            lawJobsList
+        }else {
+            lawJobsList
+        }
+
+    }
+
+
 
     private fun dummyJobs(){
         medicineJobsList.add(Job(R.drawable.hiring,"Doctor","Kuwait","8","Dentist","8000","5"))

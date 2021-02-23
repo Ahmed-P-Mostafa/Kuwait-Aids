@@ -1,6 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="course"
+            type="com.example.studentaid.data.models.Course" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="18dp"
+        android:layout_margin="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.35"
+                app:layout_constraintHeight_min="110dp"
+                tools:src="@drawable/course"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_image"
+                android:layout_margin="8dp"
+                android:text="@{course.name}"
+                android:textColor="@color/colorPrimaryDark"
+                tools:text="Course Name"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                android:layout_marginTop="4dp"
+                android:text="@{course.desc}"
+                tools:text="For law Students"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="normal"/>
+            <TextView
+                android:id="@+id/tv_usefulness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_desc"
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                android:layout_marginTop="4dp"
+                android:text="@{course.usefulness}"
+                tools:text="Usefulness for this course"
+                android:textColor="@android:color/holo_blue_light"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"/>
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_usefulness"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:text="@{course.price}"
+                tools:text="720 EG"
+                android:textSize="13sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/price_grey_background"
+                android:paddingStart="12dp"
+                android:paddingVertical="2dp"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:id="@+id/tv_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tv_price"
+                app:layout_constraintBottom_toTopOf="@id/tv_price"
+                android:layout_marginBottom="4dp"
+                android:text="@{course.time}"
+                tools:text="6 hrs"
+                android:textSize="13sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/duration_red_background"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:textAlignment="center"
+                />
+            <ImageView
+                android:id="@+id/iv_shopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_shopping"
+                android:layout_margin="12dp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

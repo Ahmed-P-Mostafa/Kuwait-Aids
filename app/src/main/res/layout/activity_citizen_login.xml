@@ -1,56 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.CitizenLoginActivity"
-    android:padding="18dp"
-    android:gravity="center_vertical">
+>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ui.CitizenLoginActivity"
+        android:padding="18dp"
+        android:layout_gravity="center"
+       >
 
-<EditText
-    android:id="@+id/etEmail"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Email"
-    android:imeOptions="actionNext"
-    android:maxLines="1"
-    />
-<EditText
-    android:id="@+id/etPassword"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Password"
-    android:maxLines="1"
-    android:imeOptions="actionGo"/>
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:textAllCaps="false"
-        android:layout_gravity="center"
-        android:onClick="Login"
-        />
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:checkedButton="@id/rbStudent"
-        >
-        <RadioButton
-            android:id="@+id/rbStudent"
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            />
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:imeOptions="actionGo"/>
+        <Button
+            android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Student"/>
-        <RadioButton
-            android:id="@+id/rbGraduate"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:onClick="Login"
+            />
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Graduate"/>
+            android:layout_gravity="center"
+            android:checkedButton="@id/rbStudent"
+            >
+            <RadioButton
+                android:id="@+id/rbStudent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student"/>
+            <RadioButton
+                android:id="@+id/rbGraduate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Graduate"/>
 
-    </RadioGroup>
-</LinearLayout>
+        </RadioGroup>
+    </LinearLayout>
+</ScrollView>
+

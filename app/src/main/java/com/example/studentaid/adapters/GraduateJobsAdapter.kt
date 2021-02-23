@@ -9,25 +9,25 @@ import com.example.studentaid.R
 import com.example.studentaid.data.models.Job
 import com.example.studentaid.databinding.JobItemLayoutBinding
 
-class GraduateJobsAdapter(private var list :List<Job>):RecyclerView.Adapter<GraduateJobsAdapter.ViewHolder>() {
+class GraduateJobsAdapter(private var list :List<Job>?):RecyclerView.Adapter<GraduateJobsAdapter.ViewHolder>() {
 
     private val TAG = "GraduateJobsAdapter"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        val inflater = LayoutInflater.from(parent.context)
-        val binding = JobItemLayoutBinding.inflate(inflater)
+        val binding = JobItemLayoutBinding.inflate(inflater,parent,false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list[position]
-        holder.bind(item)
+        val item = list?.get(position)
+        holder.bind(item!!)
         holder.itemView.setOnClickListener {
             Log.d(TAG, "onBindViewHolder:${holder.adapterPosition} ")
             listener?.onJobClicked(item)
         }
     }
 
-    override fun getItemCount()= list.size
+    override fun getItemCount()= list?.size?:0
 
     class ViewHolder(private val binding :JobItemLayoutBinding) :RecyclerView.ViewHolder(binding.root){
 

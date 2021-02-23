@@ -6,29 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.studentaid.R
+import com.example.studentaid.adapters.CoursesAdapter
+import com.example.studentaid.data.models.Course
+import kotlinx.android.synthetic.main.fragment_course.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CourseFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CourseFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    val lists = dummyCourses()
+    val adapter = CoursesAdapter(lists)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,23 +22,35 @@ class CourseFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_course, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CourseFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CourseFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onStart() {
+        super.onStart()
+        adapter.notifyDataSetChanged()
+
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+
+        rv_courses.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+    }
+    fun dummyCourses():List<Course>{
+        val list = mutableListOf<Course>()
+        list.add(Course(imageSrc = R.drawable.course,name = "Course Name",desc = "For Law graduates",usefulness = "Usefulness of thus course",time = "6 hrs","720 EG"))
+        list.add(Course(imageSrc = R.drawable.course,name = "Course Name",desc = "For Law graduates",usefulness = "Usefulness of thus course",time = "6 hrs","720 EG"))
+        list.add(Course(imageSrc = R.drawable.course,name = "Course Name",desc = "For Law graduates",usefulness = "Usefulness of thus course",time = "6 hrs","720 EG"))
+        list.add(Course(imageSrc = R.drawable.course,name = "Course Name",desc = "For Law graduates",usefulness = "Usefulness of thus course",time = "6 hrs","720 EG"))
+        list.add(Course(imageSrc = R.drawable.course,name = "Course Name",desc = "For Law graduates",usefulness = "Usefulness of thus course",time = "6 hrs","720 EG"))
+        list.add(Course(imageSrc = R.drawable.course,name = "Course Name",desc = "For Law graduates",usefulness = "Usefulness of thus course",time = "6 hrs","720 EG"))
+        list.add(Course(R.drawable.course1))
+        list.add(Course(R.drawable.course2))
+        list.add(Course(R.drawable.course))
+        list.add(Course(R.drawable.course2))
+        list.add(Course(R.drawable.course1))
+        return list
+    }
+
 }

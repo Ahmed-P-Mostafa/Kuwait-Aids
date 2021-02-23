@@ -30,7 +30,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/graduate_drawer_menu"
-        android:backgroundTint="@color/colorPrimary"
+
+        android:backgroundTint="@android:color/white"
         app:headerLayout="@layout/header_layout"/>
 
 
