@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="p"
+            type="com.example.studentaid.data.models.ProfessionalDegree" />
+
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/job_board_layout"
+        android:elevation="8dp"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="8dp"
+        android:layout_margin="8dp"
+        >
+        <TextView
+            android:id="@+id/tv_actual_salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{p.actual}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:drawableStart="@drawable/ic_rule"
+            android:drawablePadding="8dp"/>
+        <TextView
+            android:id="@+id/tv_score_increase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{p.score}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:drawableStart="@drawable/ic_rule"
+            android:drawablePadding="8dp"/>
+        <TextView
+            android:id="@+id/tv_salary_increase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{p.salary}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:drawableStart="@drawable/ic_rule"
+            android:drawablePadding="8dp"/>
+
+    </LinearLayout>
+
+
+</layout>

@@ -31,7 +31,7 @@
         <item name="male">Male</item>
         <item name="female">Female</item>
     </string-array>
-    <string-array name="university_degrees">
+    <string-array name="university_degrees" >
         <item>Choose your degree…</item>
         <item>Civil Engineering</item>
         <item>School of medicine</item>
