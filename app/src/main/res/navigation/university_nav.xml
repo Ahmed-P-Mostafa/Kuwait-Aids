@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/university_nav"
+    app:startDestination="@id/allRequestsFragment">
+
+    <fragment
+        android:id="@+id/allRequestsFragment"
+        android:name="com.example.studentaid.ui.universityEmployee.AllRequestsFragment"
+        android:label="fragment_all_requests"
+        tools:layout="@layout/fragment_all_requests" />
+    <fragment
+        android:id="@+id/refusedRequestsFragment"
+        android:name="com.example.studentaid.ui.universityEmployee.RefusedRequestsFragment"
+        android:label="fragment_refused_requests"
+        tools:layout="@layout/fragment_refused_requests">
+
+        <action
+            android:id="@+id/popUp_refusedRequests_to_allRequestsFragment"
+            app:popUpTo="@id/allRequestsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/acceptedRequestsFragment"
+        android:name="com.example.studentaid.ui.universityEmployee.AcceptedRequestsFragment"
+        android:label="fragment_accepted_requests"
+        tools:layout="@layout/fragment_accepted_requests">
+        <action
+            android:id="@+id/popUp_acceptedRequestsFragment_to_allRequestsFragment"
+            app:popUpTo="@id/allRequestsFragment"/>
+    </fragment>
+</navigation>

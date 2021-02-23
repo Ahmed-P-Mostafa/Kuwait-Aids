@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.universityEmployee.UniversityMainActivity"></activity>
+
         <activity android:name=".ui.CitizenLoginActivity" />
         <activity android:name=".ui.student.SendRequestActivity" />
         <activity android:name=".ui.graduate.HomeGraduateActivity" />
