@@ -1,5 +1,8 @@
 package com.example.studentaid.utils
 
+import android.content.SharedPreferences
+import android.util.Log
+
 object Constants {
     // SharedPreferences Constants
     const val PERSON_SHARED_PREFRENCES_FILE_NAME = "SharedPreferencesPerson"
@@ -26,5 +29,32 @@ object Constants {
     const val CONDITION_APPROVED = "APPROVED"
     const val CONDITION_REJECTED = "REJECTED"
     const val CONDITION_WITHDRAWN = "WITHDRAWN"
-    const val CONDITION_UPDATED = "UPDATED"
+    const val CONDITION_DESERVED = "DESERVED"
+    const val CONDITION_STOP = "STOP"
+    const val CONDITION_INCREASE = "INCREASE"
+    const val CONDITION_ACCESSED = "ACCESSED"
+
+    const val NOTIFICATION_CHANNEL_ID = "KUWAIT AIDS APPLICATION NOTIFICATION CHANNEL ID"
+    const val SENDER_ID = "1066263653496"
+    const val BASE_URL = "https://fcm.googleapis.com"
+    const val CONTENT_TYPE="application/json"
+
+    const val University_Topic = "University"
+    const val Ministry_Topic = "Ministry"
+
+    const val Server_key = "AAAA-EJELHg:APA91bHZiVWhAxYSfC6XxyU1aQ0RHkiMn0WJ93evjDe-R3eElRr1DfWHbJIQ-C9bsaKqajCTgRrEBvRytd8jyu_B0TEVU_p0oDm3Ts2dqFotBPM5npS-jtKGvgi8U--XA0sL9Av3BSn9"
+    object token{
+
+        val sharedPref : SharedPreferences?=null
+
+        var token :String?
+            get() {
+                Log.d("MyFirebaseMessagingServ", ": ${sharedPref?.getString("token","")}")
+                return sharedPref?.getString("token","")
+            }
+            set(value) {
+                Log.d("MyFirebaseMessagingServ", "$value: ")
+                sharedPref?.edit()?.putString("token",value)?.apply()
+            }
+    }
 }

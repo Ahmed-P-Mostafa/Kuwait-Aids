@@ -342,15 +342,16 @@
                         app:boxBackgroundMode="filled"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="2dp"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        app:endIconMode="dropdown_menu"
                         android:layout_marginVertical="4dp">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <AutoCompleteTextView
                             android:id="@+id/etNationality"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
-                            android:text="@{p.nationality}"/>
+                            android:inputType="none"
+                           />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -364,15 +365,15 @@
                         app:boxBackgroundMode="filled"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="2dp"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        app:endIconMode="dropdown_menu"
                         android:layout_marginVertical="4dp">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <AutoCompleteTextView
                             android:id="@+id/etMotherNationality"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
-                            android:text="@{p.motherNationality}"/>
+                            android:inputType="none"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -389,7 +390,8 @@
                         android:paddingVertical="2dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_marginVertical="4dp"
-                        app:endIconMode="dropdown_menu">
+                        app:endIconMode="dropdown_menu"
+                        >
 
                         <AutoCompleteTextView
                             android:id="@+id/etTitle"

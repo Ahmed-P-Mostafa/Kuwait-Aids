@@ -15,7 +15,6 @@
         android:icon="@drawable/ic_bag"/>
     <item
         android:id="@+id/notification"
-        android:onClick="notifications"
         android:title="Notifications"
         android:icon="@drawable/ic_notifications"/>
     <item

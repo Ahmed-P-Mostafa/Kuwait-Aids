@@ -11,19 +11,27 @@ import androidx.annotation.RequiresApi
 import com.example.studentaid.R
 import com.example.studentaid.base.BaseActivity
 import com.example.studentaid.data.models.Document
+import com.example.studentaid.data.models.Student
 import com.example.studentaid.data.onlineDatabase.StudentDao
 import com.example.studentaid.utils.Constants
 import com.example.studentaid.utils.Utils
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_send_request.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import java.util.*
 
 class SendRequestActivity : BaseActivity(), View.OnClickListener {
     private val TAG = "SendRequestActivity"
+
     private lateinit var filePath: Uri
     private lateinit var fileName :String
     private val documentList  = arrayListOf<Document>()
+    private val pathList = arrayListOf<Document>()
 
 
 
@@ -31,6 +39,7 @@ class SendRequestActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_request)
+        getStudentInfo()
         Log.d(TAG, "onCreate: ")
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -43,6 +52,20 @@ class SendRequestActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
+    }
+    private fun getStudentInfo(){
+        StudentDao.getStudentFromFireStore(auth.uid!!, OnSuccessListener{
+            val student = it.toObject(Student::class.java)
+            if (student?.nationality=="Kuwaiti"){
+                btn_face_civil_Id.text = "Your Civil Id (Face copy)"
+                btn_back_civil_Id.text = "Your Civil Id (Back copy)"
+            }else{
+                btn_face_civil_Id.text = "Your mother Civil Id (Face copy)"
+                btn_back_civil_Id.text = "Your mother Civil Id (Back copy)"
+
+            }
+
+        })
     }
 
 
@@ -65,84 +88,74 @@ class SendRequestActivity : BaseActivity(), View.OnClickListener {
             val extra = data.extras
             val tag = extra?.get("tag").toString()
             Log.d(TAG, "onActivityResult: $tag")
-            uploadImage(filePath, fileName)
+            pathList.add(Document(name = fileName,path = filePath))
+
 
         }
     }
 
-    fun uploadImage(imageURI: Uri, imageName: String) {
-        Log.d(TAG, "uploadImage: $imageName")
-        val student = Utils.getUserFromSharedPreferences(this)
-        val individualStudentRef :StorageReference = studentDocumentsReference.child(student.id!!)
-        val ref: StorageReference =
-            individualStudentRef.child(imageName + Calendar.getInstance().time.toString())
+    private fun uploadImages(pathList:List<Document>) {
+       CoroutineScope(Dispatchers.IO).launch {
 
-        Log.d(TAG, "uploadImage: path ${ref.path}")
-        Log.d(TAG, "uploadImage: name ${ref.name}")
-        showLoader("Uploading...")
 
-        ref.putFile(imageURI).addOnSuccessListener { it ->
+            val student = Utils.getUserFromSharedPreferences(this@SendRequestActivity)
+            val individualStudentRef :StorageReference = studentDocumentsReference.child(student.id!!)
+            pathList.forEach { path ->
+                Log.d(TAG, "uploadImage: ${path.name}")
 
-            ref.downloadUrl.addOnSuccessListener { uri ->
-                val uri = uri
-                documentList.add(Document(imageName,uri.toString()))
-                Log.d(TAG, "uploadImage: downloaded uri = $uri")
+
+                val ref: StorageReference =
+                    individualStudentRef.child(path.name + Calendar.getInstance().time.toString())
+
+                Log.d(TAG, "uploadImage: path ${ref.path}")
+                Log.d(TAG, "uploadImage: name ${ref.name}")
+
+
+                ref.putFile(path.path!!).addOnSuccessListener { it ->
+
+
+                    ref.downloadUrl.addOnSuccessListener { uri ->
+
+                        documentList.add(Document(name = path.name,url = uri.toString()))
+                        Log.d(TAG, "uploadImage: downloaded uri = $uri")
+                    }
+
+
+                }.addOnFailureListener {
+                    Toast.makeText(this@SendRequestActivity,"Error occurred",Toast.LENGTH_SHORT).show()
+
+                }
             }
-
-            hideLoader()
-            Toast.makeText(this, "Uploaded", Toast.LENGTH_SHORT).show();
-        }.addOnFailureListener {
-            hideLoader()
-            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
-        }.addOnProgressListener {
-            val progree = (100*it.bytesTransferred)/it.totalByteCount
-            setLoaderProgress(progree)
+        }.invokeOnCompletion {
+            updateCondition()
         }
+
 
     }
 
 
     fun sendDocuments(view: View) {
-  /*      val x = false
-        if (x){
-            auth.signOut()
-            Utils.logOutUserFromSharedPreefrences(this)
-            startActivity(Intent(this,LandingActivity::class.java))
-        }
-*/
-        if (isMarried()) {
 
-            if (documentList.size == 6) {
+        if (isMarried()) {
+            if (pathList.size >= 7) {
+                showLoader("Please be patient until uploading...")
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    uploadImages(pathList)
+
+                }
 
             } else {
                 showMessage("please complete documents")
             }
         } else {
 
-            if (documentList.size == 5) {
-                val userId = auth.uid
-                Log.d(TAG, "sendDocuments: $userId")
-                StudentDao.updateStudentRequest(userId!!, documentList, OnCompleteListener {
-                    if (it.isSuccessful) {
-                        Toast.makeText(this, "Request sent", Toast.LENGTH_SHORT).show()
-                        StudentDao.updateStudentCondition(auth.uid!!,Constants.CONDITION_PENDING,
-                            OnCompleteListener {
-                                if (it.isSuccessful){
-                                    Utils.changeUserRequestCondition(Constants.CONDITION_PENDING, this)
-                                    startActivity(Intent(this, HomeStudentActivity::class.java))
-                                }else{
-                                    showMessage("Error occurred while updating condition")
-                                }
+            if (pathList.size >= 6) {
+                showLoader("Please be patient until uploading...")
 
-                            })
-
-
-                    } else {
-                        Log.d(TAG, "sendDocuments: ${it.exception?.localizedMessage}")
-                        Toast.makeText(this, "Some error occurred", Toast.LENGTH_SHORT).show()
-
-                    }
-                })
+                CoroutineScope(Dispatchers.IO).launch {
+                   uploadImages(pathList)
+                }
 
             } else {
                 showMessage("please complete documents")
@@ -151,17 +164,54 @@ class SendRequestActivity : BaseActivity(), View.OnClickListener {
     }
     private fun isMarried() = radioGroup.checkedRadioButtonId==R.id.rbMarried
 
+    private fun updateCondition(){
+        val userId = auth.uid
+        Log.d(TAG, "sendDocuments: $userId")
+        CoroutineScope(IO).launch {
+
+            StudentDao.updateStudentRequest(userId!!, documentList, OnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(this@SendRequestActivity, "Request sent", Toast.LENGTH_SHORT).show()
+                    StudentDao.updateStudentCondition(auth.uid!!,Constants.CONDITION_PENDING,
+                        OnCompleteListener {
+                            if (it.isSuccessful){
+                                Utils.changeUserRequestCondition(Constants.CONDITION_PENDING, this@SendRequestActivity)
+                                startActivity(Intent(this@SendRequestActivity, HomeStudentActivity::class.java))
+                            }else{
+                                showMessage("Error occurred while updating condition")
+                            }
+
+                        })
+
+                } else {
+                    Log.d(TAG, "sendDocuments: ${it.exception?.localizedMessage}")
+                    Toast.makeText(this@SendRequestActivity, "Some error occurred", Toast.LENGTH_SHORT).show()
+
+                }
+            })
+        }.invokeOnCompletion {
+            hideLoader()
+        }
+
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onClick(v: View?) {
 
         when(v?.id){
 
-             R.id.btnCivilId-> {
+             R.id.btn_face_civil_Id-> {
                  fileName = v.tag.toString()
 
                  pickImage()
-                 tvCivilId.setText("1/1")
+                 tv_face_civil_id.setText("1/1")
              }
+            R.id.btn_back_civil_Id-> {
+                fileName = v.tag.toString()
+
+                pickImage()
+                tv_back_civil_id.setText("1/1")
+            }
             R.id.btnUniRegistration->{
                 fileName = v.tag.toString()
                 pickImage()

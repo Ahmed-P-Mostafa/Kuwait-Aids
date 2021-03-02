@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+android:id="@+id/drawer_ministry"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="false"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.ministryEmployee.MinistryHomeActivity">
+
+<fragment
+    android:id="@+id/ministry_nav_host"
+    android:name="androidx.navigation.fragment.NavHostFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:defaultNavHost="true"
+    app:navGraph="@navigation/ministry_nav"/>
+
+<com.google.android.material.navigation.NavigationView
+    android:id="@+id/ministry_nav_view"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:fitsSystemWindows="true"
+    app:menu="@menu/ministry_drawer_menu"
+    android:backgroundTint="@android:color/white"
+    app:headerLayout="@layout/header_layout"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

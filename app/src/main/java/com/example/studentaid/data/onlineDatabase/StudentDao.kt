@@ -17,8 +17,8 @@ object StudentDao {
 
         studentRef.update("documentList",documentList).addOnCompleteListener(onCompleteListener)
     }
-    fun getStudentFromFireStore(studentId:String, onCompleteListener:OnSuccessListener<DocumentSnapshot>){
-        val studentRef = OnlineDatabase.getStudentReference().document(studentId).get().addOnSuccessListener(onCompleteListener)
+    fun getStudentFromFireStore(studentId:String, onSuccessListener:OnSuccessListener<DocumentSnapshot>){
+        val studentRef = OnlineDatabase.getStudentReference().document(studentId).get().addOnSuccessListener(onSuccessListener)
 
     }
     fun updateStudentCondition(collectionId:String,condition:String,onCompleteListener: OnCompleteListener<Void>){

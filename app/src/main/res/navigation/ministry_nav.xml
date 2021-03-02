@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ministry_nav"
+    app:startDestination="@id/suspendedFragment">
+    <fragment
+        android:id="@+id/increaseAidsFragment"
+        android:name="com.example.studentaid.ui.ministryEmployee.IncreaseAidsFragment"
+        android:label="fragment_increase_aids"
+        tools:layout="@layout/fragment_increase_aids" >
+
+        <action
+            android:id="@+id/action_increaseAidsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/suspendedFragment"
+        android:name="com.example.studentaid.ui.ministryEmployee.SuspendedFragment"
+        android:label="fragment_suspended"
+        tools:layout="@layout/fragment_suspended" >
+
+        <action
+            android:id="@+id/action_suspendedFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.example.studentaid.ui.student.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.studentaid.ui.ministryEmployee.DetailsFragment"
+        android:label="DetailsFragment" >
+        <argument
+            android:name="student"
+            app:argType="com.example.studentaid.data.models.Student" />
+        <action
+            android:id="@+id/action_detailsFragment_to_suspendedFragment"
+            app:popUpTo="@id/suspendedFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_documentsFragment"
+            app:destination="@id/documentsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/documentsFragment"
+        android:name="com.example.studentaid.ui.ministryEmployee.DocumentsFragment"
+        android:label="fragment_documents"
+        tools:layout="@layout/fragment_documents" >
+        <argument
+            android:name="student"
+            app:argType="com.example.studentaid.data.models.Student" />
+    </fragment>
+    <fragment
+        android:id="@+id/deserveFragment"
+        android:name="com.example.studentaid.ui.ministryEmployee.DeserveFragment"
+        android:label="fragment_deserve"
+        tools:layout="@layout/fragment_deserve" >
+        <action
+            android:id="@+id/action_deserveFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+
+
+</navigation>

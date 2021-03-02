@@ -1,7 +1,6 @@
 package com.example.studentaid.ui.student
 
 import com.example.studentaid.R
-import kotlinx.android.synthetic.main.activity_send_request.*
 
 abstract class ViewData{
     abstract fun getView():View
@@ -13,7 +12,7 @@ abstract class ViewData{
 
 class CivilId():ViewData(){
     override fun getView(): View {
-        return View(R.id.tvCivilId,R.id.btnCivilId)
+        return View(R.id.tv_face_civil_id,R.id.btn_face_civil_Id)
 
     }
 

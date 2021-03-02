@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_home_graduate.*
+import kotlinx.android.synthetic.main.header_layout.view.*
 
 class HomeGraduateActivity : BaseActivity() {
     private val TAG = "HomeGraduateActivity"
@@ -48,6 +49,7 @@ class HomeGraduateActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_graduate)
+        val student =Utils.getUserFromSharedPreferences(this)
 
 
         navController = findNavController(R.id.fragment_graduate_nav_host)
@@ -58,17 +60,14 @@ class HomeGraduateActivity : BaseActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
+        navigationView.getHeaderView(0).tv_header_email.setText(student.emailAddress)
+        navigationView.getHeaderView(0).tv_header_name.setText(student.firstName)
 
 
     }
 
 
 
-    fun notifications(item: MenuItem) {
-        Toast.makeText(this,"Notifications",Toast.LENGTH_SHORT).show()
-
-        drawerLayout.closeDrawer(GravityCompat.START)
-    }
     fun logoutGraduate(item: MenuItem) {
         drawerLayout.closeDrawer(GravityCompat.START)
         showDialog(title = "Confirmation pop-up",message = "Are you sure want to Log out ?",posButton = "Yes",posAction = { dialogInterface: DialogInterface, i: Int ->

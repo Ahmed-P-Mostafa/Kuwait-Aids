@@ -83,7 +83,7 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="24dp">
                 <Button
-                    android:id="@+id/btnCivilId"
+                    android:id="@+id/btn_face_civil_Id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/buttonWithIcon"
@@ -96,7 +96,29 @@
                     />
 
                 <TextView
-                    android:id="@+id/tvCivilId"
+                    android:id="@+id/tv_face_civil_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+                    android:text="0/1"
+                    android:textSize="13sp"
+                    android:gravity="end"
+                    android:layout_marginBottom="8dp"/>
+                <Button
+                    android:id="@+id/btn_back_civil_Id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/buttonWithIcon"
+                    android:paddingVertical="16dp"
+                    android:onClick="onClick"
+                    android:text="A copy of civil id for you or kuwaiti mother face and back"
+                    android:drawableStart="@drawable/ic_add"
+
+                    android:tag="kuwaiti civil id"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_back_civil_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="5dp"
@@ -186,14 +208,14 @@
                     android:gravity="end"
                     android:layout_marginBottom="8dp"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilFirstName"
+                    android:id="@+id/til_iban"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="IBAN number *"
                     app:helperTextEnabled="true"
-                    app:counterMaxLength="20"
+                    app:counterMaxLength="22"
                     app:counterEnabled="true"
-                    app:helperText="must be 20 character"
+                    app:helperText="must be 22 character"
                     android:layout_gravity="center"
                     app:boxBackgroundMode="filled"
                     android:paddingVertical="2dp"
@@ -202,16 +224,19 @@
                    >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etFirstName"
+                    android:id="@+id/et_iban"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
                     android:maxLines="1"
                     />
                 </com.google.android.material.textfield.TextInputLayout>
                 <RadioGroup
                     android:id="@+id/radioGroup"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:checkedButton="@id/rbSingle"
                     android:paddingHorizontal="4dp"
                     android:layout_marginBottom="8dp"
@@ -243,12 +268,12 @@
                     android:layout_height="wrap_content"
                     style="@style/buttonWithIcon"
                     android:paddingVertical="16dp"
-                    android:text="Martial Contract"
+                    android:text="Marriage contract"
                     android:drawableStart="@drawable/ic_add"
                     android:visibility="gone"
                     tools:visibility="visible"
                     android:onClick="onClick"
-                    android:tag="Martial Contract"
+                    android:tag="Marriage contract"
                     />
                 <TextView
                     android:id="@+id/tvMartialContract"

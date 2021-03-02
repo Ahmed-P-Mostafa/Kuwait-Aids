@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -16,13 +17,14 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.studentaid.R
 import com.example.studentaid.base.BaseActivity
 import com.example.studentaid.ui.LandingActivity
+import com.example.studentaid.utils.Constants
 import com.example.studentaid.utils.Utils
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 
 class UniversityMainActivity : BaseActivity() {
 
     private lateinit var navController: NavController
-    private lateinit var navHostFragment : NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private lateinit var drawerLayout : DrawerLayout
@@ -31,6 +33,7 @@ class UniversityMainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_university_main)
+
         navController = findNavController(R.id.university_nav_host)
         drawerLayout = findViewById(R.id.drawer_university)
         navigationView = findViewById(R.id.university_nav_view)
@@ -39,6 +42,7 @@ class UniversityMainActivity : BaseActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
+        FirebaseMessaging.getInstance().subscribeToTopic(Constants.University_Topic)
 
     }
 
@@ -61,4 +65,6 @@ class UniversityMainActivity : BaseActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
+
 }

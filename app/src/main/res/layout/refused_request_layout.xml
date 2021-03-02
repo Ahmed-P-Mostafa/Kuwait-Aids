@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="student"
+            type="com.example.studentaid.data.models.Student" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="8dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/job_board_layout"
+        tools:context=".ui.universityEmployee.AcceptedRequestsFragment"
+        >
+
+        <TextView
+            android:id="@+id/label_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:text="@string/name" />
+
+        <TextView
+            android:id="@+id/label_id_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/label_name"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/label_name"
+            android:text="ID card number" />
+
+        <TextView
+            android:id="@+id/label_passport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/label_name"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/label_id_card"
+            android:text="Passport" />
+
+        <TextView
+            android:id="@+id/label_university_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/label_name"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/label_passport"
+            android:text="University Number" />
+
+        <TextView
+            android:id="@+id/label_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/label_name"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/label_university_number"
+            android:text="Phone number" />
+
+        <TextView
+            android:id="@+id/label_Nationality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/label_name"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/label_phone_number"
+            app:layout_constraintBottom_toTopOf="@id/tv_stop"
+            android:layout_marginBottom="4dp"
+            android:text="Nationality" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/label_name"
+            android:text="@{student.firstName +' '+student.lastName}"
+            tools:text="Ahmed Mostafa"/>
+        <TextView
+            android:id="@+id/tv_id_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/label_id_card"
+            android:text="@{student.idCardNumber}"
+            tools:text="458934"/>
+        <TextView
+            android:id="@+id/tv_id_passport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/label_passport"
+            android:text="@{student.passportNumber}"
+            tools:text="5288000014"/>
+        <TextView
+            android:id="@+id/tv_id_university_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/label_university_number"
+            android:text="@{student.universityNumber}"
+            tools:text="45488824"/>
+        <TextView
+            android:id="@+id/tv_id_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/label_phone_number"
+            android:text="@{student.phoneNumber}"
+            tools:text="01095977759"/>
+        <TextView
+            android:id="@+id/tv_nationality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/label_Nationality"
+            android:text="@{student.nationality}"
+            tools:text="Egyptian"/>
+
+        <TextView
+            android:id="@+id/tv_stop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_increase"
+            app:layout_constraintTop_toBottomOf="@id/label_Nationality"
+            android:background="@drawable/round_blue_shape"
+            android:text="Deserve"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+
+            android:paddingStart="12dp"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:layout_marginTop="4dp"
+            />
+        <TextView
+            android:id="@+id/tv_increase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_stop"
+            app:layout_constraintBottom_toBottomOf="@id/tv_stop"
+            app:layout_constraintTop_toTopOf="@id/tv_stop"
+            app:layout_constraintEnd_toStartOf="@id/tv_open"
+            android:background="@drawable/round_green_shape"
+            android:text="Increase"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:paddingStart="12dp"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:layout_marginHorizontal="4dp"
+
+            />
+
+
+
+        <TextView
+            android:id="@+id/tv_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_stop"
+            app:layout_constraintTop_toTopOf="@id/tv_stop"
+            app:layout_constraintStart_toEndOf="@id/tv_increase"
+            android:background="@drawable/price_grey_background"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:text="@string/open"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:paddingStart="12dp"
+            android:paddingVertical="2dp"
+           />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

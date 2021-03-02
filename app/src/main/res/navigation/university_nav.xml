@@ -3,13 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/university_nav"
-    app:startDestination="@id/allRequestsFragment">
+    app:startDestination="@id/pendingFragment">
 
     <fragment
         android:id="@+id/allRequestsFragment"
         android:name="com.example.studentaid.ui.universityEmployee.AllRequestsFragment"
         android:label="fragment_all_requests"
-        tools:layout="@layout/fragment_all_requests" />
+        tools:layout="@layout/fragment_all_requests" >
+        <action
+            android:id="@+id/action_allRequestsFragment_to_requestDetailsFragment"
+            app:destination="@id/requestDetailsFragment"
+            app:popUpTo="@id/allRequestsFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/refusedRequestsFragment"
         android:name="com.example.studentaid.ui.universityEmployee.RefusedRequestsFragment"
@@ -19,6 +24,9 @@
         <action
             android:id="@+id/popUp_refusedRequests_to_allRequestsFragment"
             app:popUpTo="@id/allRequestsFragment" />
+        <action
+            android:id="@+id/action_refusedRequestsFragment_to_requestDetailsFragment"
+            app:destination="@id/requestDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/acceptedRequestsFragment"
@@ -28,5 +36,48 @@
         <action
             android:id="@+id/popUp_acceptedRequestsFragment_to_allRequestsFragment"
             app:popUpTo="@id/allRequestsFragment"/>
+        <action
+            android:id="@+id/action_acceptedRequestsFragment_to_requestDetailsFragment"
+            app:destination="@id/requestDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/requestDetailsFragment"
+        android:name="com.example.studentaid.ui.universityEmployee.RequestDetailsFragment"
+        android:label="fragment_request_details"
+        tools:layout="@layout/fragment_request_details" >
+
+        <action
+            android:id="@+id/action_requestDetailsFragment_to_allRequestsFragment"
+            app:destination="@id/allRequestsFragment"
+            app:popUpTo="@id/allRequestsFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_requestDetailsFragment_to_attachmentsFragment"
+            app:destination="@id/attachmentsFragment" />
+        <argument
+            android:name="st"
+            app:argType="com.example.studentaid.data.models.Student" />
+    </fragment>
+    <fragment
+        android:id="@+id/attachmentsFragment"
+        android:name="com.example.studentaid.AttachmentsFragment"
+        android:label="fragment_attachments"
+        tools:layout="@layout/fragment_attachments" >
+        <action
+            android:id="@+id/action_attachmentsFragment_to_requestDetailsFragment"
+            app:popUpTo="@id/requestDetailsFragment" />
+        <argument
+            android:name="student"
+            app:argType="com.example.studentaid.data.models.Student" />
+    </fragment>
+    <fragment
+        android:id="@+id/pendingFragment"
+        android:name="com.example.studentaid.ui.universityEmployee.PendingFragment"
+        android:label="fragment_pending"
+        tools:layout="@layout/fragment_pending" >
+        <action
+            android:id="@+id/action_pendingFragment_to_requestDetailsFragment"
+            app:destination="@id/requestDetailsFragment"
+            app:popUpTo="@id/pendingFragment" />
     </fragment>
 </navigation>

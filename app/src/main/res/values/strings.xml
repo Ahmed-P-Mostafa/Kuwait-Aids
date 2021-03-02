@@ -50,4 +50,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="name">Name</string>
     <string name="open">Open</string>
+    <string name="notification_channel_name">Kuwait Aid</string>
+    <string name="notification_channel_description">Kuwait Social solidarity Ministry app</string>
+    <string name="accept">Accept</string>
 </resources>

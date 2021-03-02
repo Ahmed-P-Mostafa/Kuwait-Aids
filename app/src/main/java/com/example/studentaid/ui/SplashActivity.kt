@@ -10,7 +10,9 @@ import android.util.Log
 import androidx.core.os.HandlerCompat.postDelayed
 import com.example.studentaid.R
 import com.example.studentaid.ui.graduate.HomeGraduateActivity
+import com.example.studentaid.ui.ministryEmployee.MinistryHomeActivity
 import com.example.studentaid.ui.student.HomeStudentActivity
+import com.example.studentaid.ui.universityEmployee.UniversityMainActivity
 import com.example.studentaid.utils.Constants
 
 class SplashActivity : AppCompatActivity() {
@@ -35,12 +37,24 @@ class SplashActivity : AppCompatActivity() {
             Log.d(TAG, "isUserLoggedIn: ${sp.getString(Constants.USER_CONDITION,Constants.NULL_VALUE)}")
             startActivity(Intent(this,LandingActivity::class.java))
         }else{
-            if (sp.getString(Constants.USER_TITLE_KEY,Constants.NULL_VALUE)!!.equals("Student")) {
-                startActivity(Intent(this, HomeStudentActivity::class.java))
-            }else{
-                startActivity(Intent(this, HomeGraduateActivity::class.java))
+            when(sp.getString(Constants.USER_TITLE_KEY,Constants.NULL_VALUE)){
+                "Student"->{
+                    startActivity(Intent(this, HomeStudentActivity::class.java))
+                }
+                "Graduate"->{
+                    startActivity(Intent(this, HomeGraduateActivity::class.java))
+                }
+                "University"->{
+                    startActivity(Intent(this, UniversityMainActivity::class.java))
 
+                }
+                "Ministry"->{
+                    startActivity(Intent(this, MinistryHomeActivity::class.java))
+
+
+                }
             }
+
         }
     }
 }

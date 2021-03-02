@@ -1,5 +1,7 @@
 package com.example.studentaid.data.models
 
+import java.io.Serializable
+
 data class Student(val firstName:String?=null,
                    val lastName:String?=null,
                    val gender:String?=null,
@@ -15,4 +17,5 @@ data class Student(val firstName:String?=null,
                    , val condition:String?=null
                    , var documentList :List<Document>?= mutableListOf()
                    , var universityDegree :String?=null
-                   , var id :String?=null)
+                   , var id :String?=null
+                   , var token :String?=null) :Serializable

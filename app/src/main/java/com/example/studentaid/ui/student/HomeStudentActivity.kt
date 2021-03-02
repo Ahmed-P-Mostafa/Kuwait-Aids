@@ -20,6 +20,7 @@ import com.example.studentaid.utils.Constants
 import com.example.studentaid.utils.Utils
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.header_layout.view.*
 
 class HomeStudentActivity : BaseActivity() {
     private val TAG = "HomeStudentActivity"
@@ -34,6 +35,9 @@ class HomeStudentActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_student)
+        val student = Utils.getUserFromSharedPreferences(this)
+        Log.d(TAG, "onCreate: ${student.firstName}")
+        Log.d(TAG, "onCreate: ${student.emailAddress}")
 
 
 
@@ -44,6 +48,8 @@ class HomeStudentActivity : BaseActivity() {
 
         navigationView.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
+        navigationView.getHeaderView(0).tv_header_email.setText(student.emailAddress)
+        navigationView.getHeaderView(0).tv_header_name.setText(student.firstName)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -58,7 +64,7 @@ class HomeStudentActivity : BaseActivity() {
             Log.d(TAG, "onCreate: succed")
             student = it.toObject(Student::class.java)!!
             Log.d(TAG, "onCreate: ${student?.condition}")
-            if (student?.condition.equals(Constants.CONDITION_NULL)){
+            if (student?.condition.equals(Constants.CONDITION_ACCESSED)){
                 Log.d(TAG, "checkForRequest: ${student?.condition}")
                 startActivity(Intent(this,SendRequestActivity::class.java))
             }

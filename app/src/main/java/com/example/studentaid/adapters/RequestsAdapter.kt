@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.studentaid.data.models.Student
 import com.example.studentaid.databinding.RequestLayoutBinding
 
-class RequestsAdapter(val list:List<Student>?):RecyclerView.Adapter<RequestsAdapter.ViewHolder>() {
+open class RequestsAdapter(var list:List<Student>?):RecyclerView.Adapter<RequestsAdapter.ViewHolder>() {
 
 
 
@@ -19,6 +19,9 @@ class RequestsAdapter(val list:List<Student>?):RecyclerView.Adapter<RequestsAdap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val student = list?.get(position)
         holder.bind(student!!)
+        holder.itemView.setOnClickListener {
+            listener?.onRequestClickListener(student)
+        }
     }
 
     override fun getItemCount()=list?.size?:0
@@ -32,6 +35,20 @@ class RequestsAdapter(val list:List<Student>?):RecyclerView.Adapter<RequestsAdap
             }
         }
     }
+    fun changeData(list :List<Student>){
+        this.list = list
+        notifyDataSetChanged()
+    }
+
+    interface OnRequestClickListener{
+        fun onRequestClickListener(student: Student)
+    }
+    private var listener :OnRequestClickListener?=null
+
+    fun SetOnRequestClickListener(listener: OnRequestClickListener){
+        this.listener = listener
+    }
+
 
 
 }

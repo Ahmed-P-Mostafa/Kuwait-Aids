@@ -41,4 +41,9 @@
             app:popUpToInclusive="true"
             app:popUpTo="@+id/availableJobsFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.example.studentaid.ui.student.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
 </navigation>

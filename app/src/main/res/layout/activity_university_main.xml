@@ -16,17 +16,16 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/university_nav" />
 
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/university_nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/university_drawer_menu"
-
         android:backgroundTint="@android:color/white"
         app:headerLayout="@layout/header_layout"
+
         >
 
     </com.google.android.material.navigation.NavigationView>

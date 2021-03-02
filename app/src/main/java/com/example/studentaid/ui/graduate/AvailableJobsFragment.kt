@@ -1,39 +1,30 @@
 package com.example.studentaid.ui.graduate
 
-import android.graphics.Path
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.studentaid.R
 import com.example.studentaid.adapters.GraduateJobsAdapter
 import com.example.studentaid.data.models.Job
 import com.example.studentaid.data.models.Student
 import com.example.studentaid.data.onlineDatabase.StudentDao
-import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_available_jobs.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 
 class AvailableJobsFragment : Fragment() {
@@ -78,7 +69,10 @@ class AvailableJobsFragment : Fragment() {
             adapter.changeData(getAppropriateJobs(it))
         })
         dummyJobs()
-        checkForUniversityDegree()
+        CoroutineScope(Dispatchers.IO).launch {
+
+            checkForUniversityDegree()
+        }
 
         //adapter.changeData(jobsList)
 
@@ -134,13 +128,16 @@ class AvailableJobsFragment : Fragment() {
                 Toast.makeText(requireContext(), items[which].toString(), Toast.LENGTH_LONG).show()
                 //jobsList = getAppropriateJobs(items[which])
                 //showJobsList()
-                updateGraduateDegree(items[which])
+                CoroutineScope(IO).launch {
+
+                    updateGraduateDegree(items[which])
+                }
             }
             .setCancelable(false)
             .show()
     }
 
-    private fun updateGraduateDegree(updatedDegree:String){
+    private suspend fun updateGraduateDegree(updatedDegree:String){
 
         StudentDao.updateGraduateDegree(FirebaseAuth.getInstance().currentUser?.uid!!,updatedDegree, OnCompleteListener {
             if (it.isSuccessful){
