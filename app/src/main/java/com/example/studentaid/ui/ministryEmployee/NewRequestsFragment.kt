@@ -1,4 +1,4 @@
-package com.example.studentaid.ui.universityEmployee
+package com.example.studentaid.ui.ministryEmployee
 
 import android.os.Bundle
 import android.util.Log
@@ -12,33 +12,32 @@ import com.example.studentaid.base.BaseFragment
 import com.example.studentaid.data.models.Student
 import com.example.studentaid.data.onlineDatabase.EmployeeDAO
 import com.example.studentaid.utils.Constants
-import kotlinx.android.synthetic.main.fragment_all_requests.*
+import kotlinx.android.synthetic.main.fragment_new_requests.*
 
-class AllRequestsFragment : BaseFragment() {
 
-    private val TAG = "AllRequestsFragment"
+class NewRequestsFragment : BaseFragment() {
+    private val TAG = "NewRequestsFragment"
     val adapter = RequestsAdapter(null)
     val studentList = mutableListOf<Student>()
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d(TAG, "onCreateView: ")
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_requests, container, false)
+        return inflater.inflate(R.layout.fragment_new_requests, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: ")
-        showLoader("Loading Requests...",requireContext())
-        rv_allRequests.adapter = adapter
 
+        rv_newRequests.adapter= adapter
         adapter.SetOnRequestClickListener(object : RequestsAdapter.OnRequestClickListener {
             override fun onRequestClickListener(student: Student) {
-               val action =  AllRequestsFragmentDirections.actionAllRequestsFragmentToRequestDetailsFragment(student)
+
+                val action = NewRequestsFragmentDirections.actionNewRequestsFragmentToDetailsFragment(student)
                 findNavController().navigate(action)
             }
 
@@ -60,13 +59,14 @@ class AllRequestsFragment : BaseFragment() {
             it.documents.forEach {
                 val student = it.toObject(Student::class.java)
                 if (student != null && student.condition == Constants.CONDITION_PENDING) {
-                    Log.d(TAG, "getPendingRequests: ${student.condition}")
+                    Log.d(TAG, "getPendingRequests: ${student.documentList?.size}")
                     studentList.add(student)
                 }
             }
             if (studentList.size==0){
-                iv_allEmptyList.visibility = View.VISIBLE
-            }
+                iv_newEmptyList.visibility = View.VISIBLE
+            }else iv_newEmptyList.visibility = View.GONE
+
             adapter.changeData(studentList)
 
         }, {
@@ -75,8 +75,5 @@ class AllRequestsFragment : BaseFragment() {
         })
         hideLoader()
     }
-
-
-
 
 }

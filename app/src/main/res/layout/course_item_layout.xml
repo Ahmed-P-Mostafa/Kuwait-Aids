@@ -27,69 +27,62 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintWidth_percent="0.35"
-                app:layout_constraintHeight_min="110dp"
+                app:layout_constraintHeight_min="130dp"
                 tools:src="@drawable/course"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop" />
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_image"
-                android:layout_margin="8dp"
-                android:text="@{course.name}"
-                android:textColor="@color/colorPrimaryDark"
-                tools:text="Course Name"
-                android:fontFamily="sans-serif"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/tv_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_name"
-                app:layout_constraintStart_toStartOf="@id/tv_name"
-                android:layout_marginTop="4dp"
-                android:text="@{course.desc}"
-                tools:text="For law Students"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="normal"/>
-            <TextView
-                android:id="@+id/tv_usefulness"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_desc"
-                app:layout_constraintStart_toStartOf="@id/tv_name"
-                android:layout_marginTop="4dp"
-                android:text="@{course.usefulness}"
-                tools:text="Usefulness for this course"
-                android:textColor="@android:color/holo_blue_light"
-                android:fontFamily="sans-serif"
-                android:textStyle="normal"/>
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_usefulness"
-                android:drawableEnd="@drawable/ic_arrow_right"
-                android:text="@{course.price}"
-                tools:text="720 EG"
-                android:textSize="13sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/price_grey_background"
-                android:paddingStart="12dp"
-                android:paddingVertical="2dp"
-                android:textAlignment="center"
-                />
+       <LinearLayout
+           android:id="@+id/linear"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintStart_toEndOf="@id/iv_image"
+           app:layout_constraintEnd_toStartOf="@id/tv_duration"
+           android:paddingStart="8dp"
+           >
+           <TextView
+               android:id="@+id/tv_name"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="8dp"
+               android:text="@{course.name}"
+               android:textColor="@color/colorPrimaryDark"
+               tools:text="Course Name"
+               android:fontFamily="sans-serif"
+               android:textStyle="bold"/>
+           <TextView
+               android:id="@+id/tv_desc"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="4dp"
+               android:text="@{course.desc}"
+               tools:text="For law Students"
+               android:fontFamily="sans-serif"
+               android:textColor="@color/colorPrimaryDark"
+               android:textStyle="normal"/>
+           <TextView
+               android:id="@+id/tv_usefulness"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               app:layout_constraintTop_toBottomOf="@id/tv_desc"
+               app:layout_constraintStart_toStartOf="@id/tv_name"
+               android:layout_marginTop="4dp"
+               android:text="@{course.usefulness}"
+               tools:text="Usefulness for this course"
+               android:textColor="@android:color/holo_blue_light"
+               android:fontFamily="sans-serif"
+               android:textStyle="normal"/>
+       </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tv_price"
-                app:layout_constraintBottom_toTopOf="@id/tv_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_shopping"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
                 android:text="@{course.time}"
                 tools:text="6 hrs"
@@ -109,6 +102,17 @@
                 android:src="@drawable/ic_shopping"
                 android:layout_margin="12dp"
                 />
+            <Button
+                android:id="@+id/btn_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/iv_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear"
+                android:text="Apply"
+                android:textAllCaps="false"
+                android:layout_marginTop="4dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ministry_nav"
-    app:startDestination="@id/suspendedFragment">
+    app:startDestination="@id/newRequestsFragment">
     <fragment
         android:id="@+id/increaseAidsFragment"
         android:name="com.example.studentaid.ui.ministryEmployee.IncreaseAidsFragment"
-        android:label="fragment_increase_aids"
+        android:label="Increasing requests"
         tools:layout="@layout/fragment_increase_aids" >
 
         <action
@@ -17,22 +17,18 @@
     <fragment
         android:id="@+id/suspendedFragment"
         android:name="com.example.studentaid.ui.ministryEmployee.SuspendedFragment"
-        android:label="fragment_suspended"
+        android:label="Rejected requests"
         tools:layout="@layout/fragment_suspended" >
 
         <action
             android:id="@+id/action_suspendedFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/notification"
-        android:name="com.example.studentaid.ui.student.NotificationsFragment"
-        android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
+
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.studentaid.ui.ministryEmployee.DetailsFragment"
-        android:label="DetailsFragment" >
+        android:label="Request details" >
         <argument
             android:name="student"
             app:argType="com.example.studentaid.data.models.Student" />
@@ -46,7 +42,7 @@
     <fragment
         android:id="@+id/documentsFragment"
         android:name="com.example.studentaid.ui.ministryEmployee.DocumentsFragment"
-        android:label="fragment_documents"
+        android:label="Student documents"
         tools:layout="@layout/fragment_documents" >
         <argument
             android:name="student"
@@ -55,10 +51,19 @@
     <fragment
         android:id="@+id/deserveFragment"
         android:name="com.example.studentaid.ui.ministryEmployee.DeserveFragment"
-        android:label="fragment_deserve"
+        android:label="Deserved requests"
         tools:layout="@layout/fragment_deserve" >
         <action
             android:id="@+id/action_deserveFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newRequestsFragment"
+        android:name="com.example.studentaid.ui.ministryEmployee.NewRequestsFragment"
+        android:label="New requests"
+        tools:layout="@layout/fragment_new_requests" >
+        <action
+            android:id="@+id/action_newRequestsFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
 

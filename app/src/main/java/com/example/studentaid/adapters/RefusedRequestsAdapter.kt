@@ -26,15 +26,12 @@ open class RefusedRequestsAdapter(var list:List<Student>?):RecyclerView.Adapter<
 
         holder.itemView.tv_stop.setOnClickListener {
             Log.d(TAG, "onBindViewHolder: on stop click listener ")
-            listener?.onStopClickListener(student)
+            listener?.onStopClickListener(student,position)
         }
-        holder.itemView.tv_increase.setOnClickListener {
-            Log.d(TAG, "onBindViewHolder: on increase click listener ")
-            listener?.onIncreaseClickListener(student)
-        }
+
         holder.itemView.tv_open.setOnClickListener {
             Log.d(TAG, "onBindViewHolder: on open click listener ")
-            listener?.onOpenClickListener(student)
+            listener?.onOpenClickListener(student,position)
         }
     }
 
@@ -55,9 +52,8 @@ open class RefusedRequestsAdapter(var list:List<Student>?):RecyclerView.Adapter<
     }
 
     interface OnRequestClickListener{
-        fun onStopClickListener(student: Student)
-        fun onIncreaseClickListener(student: Student)
-        fun onOpenClickListener(student: Student)
+        fun onStopClickListener(student: Student,position:Int)
+        fun onOpenClickListener(student: Student,position:Int)
     }
     private var listener :OnRequestClickListener?=null
 

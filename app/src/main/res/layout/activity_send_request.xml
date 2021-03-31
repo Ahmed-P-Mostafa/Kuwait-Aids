@@ -40,7 +40,7 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="4dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="@string/hello_friend" />
+            android:text="@string/hello_Student" />
 
         <TextView
             android:id="@+id/tvInstructions"
@@ -92,7 +92,7 @@
                     android:text="A copy of civil id for you or kuwaiti mother face and back"
                     android:drawableStart="@drawable/ic_add"
 
-                    android:tag="kuwaiti civil id"
+                    android:tag="face copy of kuwaiti civil id"
                     />
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:text="A copy of civil id for you or kuwaiti mother face and back"
                     android:drawableStart="@drawable/ic_add"
 
-                    android:tag="kuwaiti civil id"
+                    android:tag="back copy of kuwaiti civil id"
                     />
 
                 <TextView

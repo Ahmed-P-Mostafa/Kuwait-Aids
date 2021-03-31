@@ -38,13 +38,14 @@ class HomeStudentActivity : BaseActivity() {
         val student = Utils.getUserFromSharedPreferences(this)
         Log.d(TAG, "onCreate: ${student.firstName}")
         Log.d(TAG, "onCreate: ${student.emailAddress}")
+        showLoader("Please wait")
+        checkForRequest()
 
 
 
         navController = findNavController(R.id.fragment_student_nav_host)
         drawerLayout = findViewById(R.id.studentDrawer)
         navigationView = findViewById(R.id.nav_view)
-        checkForRequest()
 
         navigationView.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
@@ -53,14 +54,17 @@ class HomeStudentActivity : BaseActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-      /*  Log.d(TAG, "onCreate: ${student.condition?:"null"}")
-        Log.d(TAG, "onCreate: ${student!!.id?:"null"}")*/
+
+
+        /*  Log.d(TAG, "onCreate: ${student.condition?:"null"}")
+          Log.d(TAG, "onCreate: ${student!!.id?:"null"}")*/
 
     }
     private fun checkForRequest(){
         Log.d(TAG, "checkForRequest: get userFrom shared preferences")
     //    val person = Utils.getUserFromSharedPreferences(this)
         StudentDao.getStudentFromFireStore(auth.uid!!, OnSuccessListener {
+            hideLoader()
             Log.d(TAG, "onCreate: succed")
             student = it.toObject(Student::class.java)!!
             Log.d(TAG, "onCreate: ${student?.condition}")
@@ -70,7 +74,6 @@ class HomeStudentActivity : BaseActivity() {
             }
 
         })
-
 
     }
 
@@ -86,19 +89,11 @@ class HomeStudentActivity : BaseActivity() {
             Utils.logOutUserFromSharedPreefrences(this)
             auth.signOut()
             startActivity(Intent(this, LandingActivity::class.java))
+            finish()
 
         },negButton = "No",negAction = { dialogInterface: DialogInterface, i: Int ->
             dialogInterface.dismiss()
         })
-    }
-    fun about(item: MenuItem) {
-        Toast.makeText(this,"About fragment",Toast.LENGTH_SHORT).show()
-        drawerLayout.closeDrawer(GravityCompat.START)
-    }
-
-    fun settings(item: MenuItem) {
-        Toast.makeText(this,"Settings fragment",Toast.LENGTH_SHORT).show()
-        drawerLayout.closeDrawer(GravityCompat.START)
     }
 
 }

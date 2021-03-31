@@ -7,11 +7,6 @@
         android:title="Pending Students"
         android:icon="@drawable/ic_follow_request"
         />
-    <item
-        android:id="@+id/allRequestsFragment"
-        android:title="New Requests"
-        android:icon="@drawable/ic_follow_request"
-        />
 
     <item
         android:id="@+id/acceptedRequestsFragment"

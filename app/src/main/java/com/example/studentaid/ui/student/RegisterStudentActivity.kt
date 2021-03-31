@@ -23,30 +23,19 @@ import com.example.studentaid.utils.Utils
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_register_student.*
+import kotlinx.android.synthetic.main.activity_send_request.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class RegisterStudentActivity : BaseActivity() {
     lateinit var binding : ActivityRegisterStudentBinding
     private val TAG = "RegisterActivity"
     private lateinit var student: Student
 
- /*   val person = Student(
-        "ahmed",
-        "ghorab",
-        "female",
-        "20-6-1995",
-        "123456789",
-        "1234567890",
-        "1230",
-        "ahmed@gmail.com",
-        "010123456",
-        "egyptian",
-        "Kuwaiti",
-        "Graduate",
-        Constants.CONDITION_NULL
-    )*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,38 +65,49 @@ class RegisterStudentActivity : BaseActivity() {
     }
 
     fun signUp(){
-        //TODO modify this dummy method
         showLoader("Signing Up...")
-        CoroutineScope(IO).launch {
+
 
             Log.d(TAG, "signUp: ${isDataValid()}")
             if (isDataValid()){
                 Log.d(TAG, "signUp: ")
                 if (isKuwaiti()){
-                    auth.createUserWithEmailAndPassword(etEmail.text.toString(),etPassword.text.toString()).addOnCompleteListener {
-                        if (it.isSuccessful){
+                    CoroutineScope(IO).launch {
+                        try {
+                            auth.createUserWithEmailAndPassword(etEmail.text.toString(),etPassword.text.toString()).addOnCompleteListener {
+                                if (it.isSuccessful){
 
-                            Log.d(TAG, "signUp: successful")
-                            Toast.makeText(this@RegisterStudentActivity, "Authentication Successful", Toast.LENGTH_SHORT).show()
-                            student = fetchStudentData()
-                            student.id = it.result?.user?.uid
-                            FirebaseMessaging.getInstance().token.addOnSuccessListener {
-                                student.token = it
-                                validateStudent(student)
+                                    Log.d(TAG, "signUp: successful")
+                                    Toast.makeText(this@RegisterStudentActivity, "Authentication Successful", Toast.LENGTH_SHORT).show()
+                                    student = fetchStudentData()
+                                    student.id = it.result?.user?.uid
+                                    FirebaseMessaging.getInstance().token.addOnSuccessListener {
+                                        student.token = it
+                                        validateStudent(student)
+                                    }
+
+                                    Log.d(TAG, "signUp: ${Application.token}")
+
+                                }else{
+                                    Log.d(TAG, "signUp: ${it.exception?.localizedMessage}")
+                                    showMessage(it.exception?.localizedMessage)
+                                    Toast.makeText(this@RegisterStudentActivity,it.exception?.localizedMessage,Toast.LENGTH_SHORT).show()
+                                    hideLoader()
+                                }
                             }
-                            //todo modify student instead of person
 
-                            Log.d(TAG, "signUp: ${Application.token}")
+                        }catch (e:Exception){
+                            showMessage(e.localizedMessage)
 
-                        }else{
-                            Log.d(TAG, "signUp: ${it.exception?.localizedMessage}")
-                            Toast.makeText(this@RegisterStudentActivity,"sign up failed",Toast.LENGTH_SHORT).show()
-                            hideLoader()
                         }
+
                     }
 
                 }else{
+                    hideLoader()
                     showMessage("Sorry not Kuwaiti")
+
+
                 }
 
             }else{
@@ -115,7 +115,7 @@ class RegisterStudentActivity : BaseActivity() {
                 showMessage("Please fulfill data properly")
 
             }
-        }
+
 
     }
     fun isDataValid():Boolean{

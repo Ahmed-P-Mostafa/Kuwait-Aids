@@ -60,7 +60,9 @@ class DeserveFragment : BaseFragment() {
             }
             if (studentList.size==0){
                 iv_deserveEmptyList.visibility = View.VISIBLE
-            }
+
+            } else iv_deserveEmptyList.visibility = View.GONE
+
             adapter.changeData(studentList)
 
         }, {

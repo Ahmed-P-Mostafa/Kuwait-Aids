@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_available_jobs.*
+import kotlinx.android.synthetic.main.fragment_course.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
@@ -32,16 +34,17 @@ class AvailableJobsFragment : Fragment() {
     private var adapter = GraduateJobsAdapter(null)
     private var jobsList = mutableListOf<Job>()
     var degree = MutableLiveData<String>()
-  /*   lateinit var navHostFragment: NavHostFragment
-     lateinit var navController: NavController*/
+    val degreeItems = listOf("Information and Technologies", "Mechanical Engineering")
+
+    /*   lateinit var navHostFragment: NavHostFragment
+       lateinit var navController: NavController*/
 
 
 
 
     private var student: Student?=null
 
-    private val medicineJobsList = mutableListOf<Job>()
-    private val lawJobsList = mutableListOf<Job>()
+    private val ITJobsList = mutableListOf<Job>()
     private val engineeringJobsList = mutableListOf<Job>()
 
 
@@ -56,7 +59,9 @@ class AvailableJobsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        //adapter.changeData(jobsList)
+
+        val degreeAdapter = ArrayAdapter(requireContext(),R.layout.dropdown_menu,degreeItems)
+        et_certificate.setAdapter(degreeAdapter)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,20 +74,23 @@ class AvailableJobsFragment : Fragment() {
             adapter.changeData(getAppropriateJobs(it))
         })
         dummyJobs()
-        CoroutineScope(Dispatchers.IO).launch {
 
-            checkForUniversityDegree()
+       /* CoroutineScope(Dispatchers.IO).launch {
+
+            //checkForUniversityDegree()
+        }*/
+
+
+        et_certificate.setOnItemClickListener { parent, view, position, id ->
+            updateDegrees(degreeItems[position])
         }
-
-        //adapter.changeData(jobsList)
-
 
 
 
         adapter.setOnJobClickListener(object : GraduateJobsAdapter.OnJobClickListener {
             override fun onJobClicked(job: Job) {
                 Log.d("AvailableJobsFragment", "onJobClicked: ${job.occupation}")
-                val bundle = bundleOf("job" to job)
+               // val bundle = bundleOf("job" to job)
                 val action = AvailableJobsFragmentDirections.actionAvailableJobsFragmentToJobDetailsFragment(job)
 
                 findNavController().navigate(action)
@@ -93,7 +101,12 @@ class AvailableJobsFragment : Fragment() {
 
 
     }
-    private fun checkForUniversityDegree(){
+
+    private fun updateDegrees(s: String) {
+        adapter.changeData(getAppropriateJobs(s))
+    }
+
+    /*private fun checkForUniversityDegree(){
         Log.d(TAG, "checkForRequest: get userFrom shared preferences")
         //    val person = Utils.getUserFromSharedPreferences(this)
         StudentDao.getStudentFromFireStore(FirebaseAuth.getInstance().currentUser?.uid!!, OnSuccessListener {
@@ -103,14 +116,14 @@ class AvailableJobsFragment : Fragment() {
             if (student?.universityDegree.equals(null)){
                 Log.d(TAG, "checkForRequest: ${student?.condition}")
                 //showSpinnerDialog()
-                showMaterialDialog()
+                //showMaterialDialog()
             }
             else{
 
                 adapter.changeData(getAppropriateJobs(student?.universityDegree!!))
             }
         })
-    }
+    }*/
 
  /*   private fun showJobsList() {
         adapter.changeData(getAppropriateJobs(student?.universityDegree!!))
@@ -118,7 +131,7 @@ class AvailableJobsFragment : Fragment() {
     }*/
 
     private fun showMaterialDialog(){
-        val items = arrayOf("Engineering School", "Medicine School", "Law School")
+        val items = arrayOf("Information and Technologies", "Mechanical Engineering")
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Determine your university degree")
@@ -137,25 +150,21 @@ class AvailableJobsFragment : Fragment() {
             .show()
     }
 
-    private suspend fun updateGraduateDegree(updatedDegree:String){
+    private fun updateGraduateDegree(updatedDegree:String){
 
         StudentDao.updateGraduateDegree(FirebaseAuth.getInstance().currentUser?.uid!!,updatedDegree, OnCompleteListener {
             if (it.isSuccessful){
                 adapter.changeData( getAppropriateJobs(updatedDegree))
-              //  showJobsList()
             }
         })
     }
     private fun getAppropriateJobs(universityDegree:String):MutableList<Job> {
-        return if (universityDegree=="Engineering School"){
+        return if (universityDegree=="Information and Technologies"){
+            ITJobsList
+        }else if(universityDegree=="Mechanical Engineering"){
             engineeringJobsList
-        }else if(universityDegree=="Medicine School"){
-            medicineJobsList
-        }
-        else if(universityDegree=="Law School"){
-            lawJobsList
         }else {
-            lawJobsList
+            ITJobsList
         }
 
     }
@@ -163,23 +172,13 @@ class AvailableJobsFragment : Fragment() {
 
 
     private fun dummyJobs(){
-        medicineJobsList.add(Job(R.drawable.hiring,"Doctor","Kuwait","8","Dentist","8000","5"))
-        medicineJobsList.add(Job(R.drawable.hiring1,"Doctor","Kuwait","8","Occupational Health Doctor","8000","2"))
-        medicineJobsList.add(Job(R.drawable.hiring1,"Doctor","Kuwait","8","Ward Manager","12000","1"))
-        medicineJobsList.add(Job(R.drawable.hiring,"Doctor","Kuwait","8","Medical Representative","5000","5"))
-        medicineJobsList.add(Job(R.drawable.hiring1,"Doctor","Kuwait","8","Veterinary Medical","8000","5"))
+        ITJobsList.clear()
+        engineeringJobsList.clear()
 
-        lawJobsList.add(Job(R.drawable.hiring1,"Lawyer","Kuwait","8","Civil Law specialist","8000","5"))
-        lawJobsList.add(Job(R.drawable.hiring,"Lawyer","Kuwait","8","Criminal Law specialist","8000","1"))
-        lawJobsList.add(Job(R.drawable.hiring,"Lawyer","Kuwait","8","Administrative Law specialist","9000","2"))
-        lawJobsList.add(Job(R.drawable.hiring1,"Lawyer","Kuwait","8","Public Law specialist","5000","1"))
-        lawJobsList.add(Job(R.drawable.hiring,"Lawyer","Kuwait","8","Insurance Law specialist","7000","3"))
+        ITJobsList.add(Job(R.drawable.hiring,"Programmer","Minister of finance","8:00AM to 2:00PM","Programming Driver","400 KD","2"))
 
-        engineeringJobsList.add(Job(R.drawable.hiring1,"Petroleum Engineer","Kuwait","8","Petroleum Engineer","8000","5"))
-        engineeringJobsList.add(Job(R.drawable.hiring,"Petroleum Engineer","Kuwait","8","Petroleum Engineer","8000","5"))
-        engineeringJobsList.add(Job(R.drawable.hiring1,"Petroleum Engineer","Kuwait","8","Petroleum Engineer","8000","5"))
-        engineeringJobsList.add(Job(R.drawable.hiring,"Petroleum Engineer","Kuwait","8","Petroleum Engineer","8000","5"))
-        engineeringJobsList.add(Job(R.drawable.hiring1,"Petroleum Engineer","Kuwait","8","Petroleum Engineer","8000","5"))
+
+        engineeringJobsList.add(Job(R.drawable.hiring1,"Engineering in mechanic field","Minister of Public Works ","7:00 AM to 1:30 PM","Engineer","550 KD","2"))
 
 
     }

@@ -9,283 +9,299 @@
             type="com.example.studentaid.data.models.Job" />
 
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.graduate.JobDetailsFragment"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="12dp"
-        android:background="@color/backGround">
-
-        <Button
-            android:id="@+id/btnUniversityDegree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/buttonWithIcon"
-            android:paddingVertical="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="A copy of civil id for you or kuwaiti mother face and back"
-            android:drawableStart="@drawable/ic_add"
-
-            android:tag="kuwaiti civil id" />
-
-        <TextView
-            android:id="@+id/tvUniversityDegree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="5dp"
-            app:layout_constraintTop_toBottomOf="@id/btnUniversityDegree"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="0/1"
-            android:textSize="13sp"
-            android:gravity="end"
-            android:layout_marginBottom="8dp" />
-
-        <Button
-            android:id="@+id/btnIdCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/buttonWithIcon"
-            android:paddingVertical="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvUniversityDegree"
-            android:text="A copy of civil id for you or kuwaiti mother face and back"
-            android:drawableStart="@drawable/ic_add"
-            android:tag="kuwaiti civil id" />
-
-        <TextView
-            android:id="@+id/tvIdCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="5dp"
-            app:layout_constraintTop_toBottomOf="@id/btnIdCard"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="0/1"
-            android:textSize="13sp"
-            android:gravity="end"
-            android:layout_marginBottom="8dp" />
-        <!-- <com.makeramen.roundedimageview.RoundedImageView
-             android:id="@+id/iv_banner"
-             android:layout_width="match_parent"
-             android:layout_height="200dp"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintTop_toBottomOf="@id/tvIdCard"
-             android:src="@drawable/hiring"
-             android:scaleType="centerCrop"
-             android:adjustViewBounds="true"
-             app:layout_constraintCircleRadius="18dp"
-             app:riv_corner_radius="18dip"
-             app:riv_corner_radius_top_left="18dp"
-             app:riv_tile_mode="repeat"
-             app:riv_oval="true"/>-->
-        <com.comix.rounded.RoundedCornerImageView
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvIdCard"
-            app:layout_constraintBottom_toBottomOf="@id/guideLine3"
-            app:layout_goneMarginTop="4dp"
-            android:id="@+id/iv_banner"
-            tools:src="@drawable/hiring"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="16dp"
-            app:cornerColor="@android:color/white"
-            app:cornerRadius="12dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideLine3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.515" />
-
+        android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_details"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideLine3"
-            android:background="@drawable/job_board_layout"
-            android:padding="4dp">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline"
-                app:layout_constraintGuide_begin="4dp"
-                android:orientation="vertical" />
-
-            <TextView
-                android:id="@+id/occupationLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"
-                android:text="Occupation"
-                android:textSize="14sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/placeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/occupationLabel"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"
-                android:text="Place of employment"
-                android:textSize="14sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/hoursLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/placeLabel"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"
-                android:text="Working Hours"
-                android:textSize="14sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/titleLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/hoursLabel"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"
-                android:text="Job title"
-                android:textSize="14sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/salaryLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/titleLabel"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"
-                android:text="Monthly Salary"
-                android:textSize="14sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/placesLeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/salaryLabel"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"
-                android:text="Number of places available"
-                android:textSize="14sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideLine2"
-                android:layout_width="wrap_content"
+            tools:context=".ui.graduate.JobDetailsFragment"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            android:background="@color/backGround">
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.57"
-                app:layout_constraintStart_toEndOf="@id/placesLeLabel" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/iv_banner">
 
-            <TextView
-                android:id="@+id/tvOccupation"
+                <Button
+                    android:id="@+id/btnUniversityDegree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/buttonWithIcon"
+                    android:paddingVertical="16dp"
+                    android:text="University Certificate"
+                    android:drawableStart="@drawable/ic_add"
+
+                    android:tag="kuwaiti civil id" />
+
+                <TextView
+                    android:id="@+id/tvUniversityDegree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+
+                    android:text="0/1"
+                    android:textSize="13sp"
+                    android:gravity="end"
+                    android:layout_marginBottom="8dp" />
+
+                <Button
+                    android:id="@+id/btnIdFace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/buttonWithIcon"
+                    android:paddingVertical="16dp"
+                    android:text="Civil id (face copy)"
+                    android:drawableStart="@drawable/ic_add"
+                    android:tag="kuwaiti civil id" />
+
+                <TextView
+                    android:id="@+id/tvIdFace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+                    android:text="0/1"
+                    android:textSize="13sp"
+                    android:gravity="end"
+                    android:layout_marginBottom="8dp" />
+                <Button
+                    android:id="@+id/btnIdBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/buttonWithIcon"
+                    android:paddingVertical="16dp"
+                    android:text="Civil id (back copy)"
+                    android:drawableStart="@drawable/ic_add"
+                    android:tag="kuwaiti civil id" />
+
+                <TextView
+                    android:id="@+id/tvIdBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+                    android:text="0/1"
+                    android:textSize="13sp"
+                    android:gravity="end"
+                    android:layout_marginBottom="8dp" />
+            </LinearLayout>
+
+
+            <com.comix.rounded.RoundedCornerImageView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear"
+                app:layout_constraintBottom_toBottomOf="@id/guideLine3"
+                app:layout_goneMarginTop="4dp"
+                android:id="@+id/iv_banner"
+                tools:src="@drawable/hiring"
+                android:background="#00FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:cornerColor="@android:color/white"
+                app:cornerRadius="12dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLine3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/guideLine2"
-                android:textColor="@color/colorPrimary"
-                android:text="@{job.occupation}"
-                app:layout_constraintTop_toTopOf="@id/occupationLabel"
-                android:textSize="14sp"
-                android:layout_marginStart="4dp" />
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.650" />
 
-            <TextView
-                android:id="@+id/tvPlace"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guideLine3"
+                android:background="@drawable/job_board_layout"
+                android:padding="4dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/guideline"
+                    app:layout_constraintGuide_begin="4dp"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/occupationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="Job kind"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/placeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/occupationLabel"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="Working place"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/hoursLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/placeLabel"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="Working Hours"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/titleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/hoursLabel"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="Job title"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/salaryLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/titleLabel"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="Salary"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/placesLeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/salaryLabel"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="Vacant places"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLine2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toEndOf="@id/placesLeLabel"
+                    />
+
+                <TextView
+                    android:id="@+id/tvOccupation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/guideLine2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textAlignment="viewEnd"
+                    android:text="@{job.occupation}"
+                    app:layout_constraintTop_toTopOf="@id/occupationLabel"
+                    android:textSize="14sp"
+                    android:layout_marginStart="4dp" />
+
+                <TextView
+                    android:id="@+id/tvPlace"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/tvOccupation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@{job.location}"
+                    android:ellipsize="end"
+                    android:textAlignment="textStart"
+                    app:layout_constraintTop_toTopOf="@id/placeLabel"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvHours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/tvOccupation"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@{job.workingHours}"
+                    app:layout_constraintTop_toTopOf="@id/hoursLabel"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/tvOccupation"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@{job.title}"
+                    app:layout_constraintTop_toTopOf="@id/titleLabel"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvSalary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/tvOccupation"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@{job.salary}"
+                    app:layout_constraintTop_toTopOf="@id/salaryLabel"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvPlaces"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/tvOccupation"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@{job.placesAvailable}"
+                    app:layout_constraintTop_toTopOf="@id/placesLeLabel"
+                    android:textSize="14sp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/btn_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tvOccupation"
-                android:textColor="@color/colorPrimary"
-                android:text="@{job.location}"
-                app:layout_constraintTop_toTopOf="@id/placeLabel"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvHours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tvOccupation"
-                android:textColor="@color/colorPrimary"
-                android:text="@{job.workingHours}"
-                app:layout_constraintTop_toTopOf="@id/hoursLabel"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tvOccupation"
-                android:textColor="@color/colorPrimary"
-                android:text="@{job.title}"
-                app:layout_constraintTop_toTopOf="@id/titleLabel"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvSalary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tvOccupation"
-                android:textColor="@color/colorPrimary"
-                android:text="@{job.salary}"
-                app:layout_constraintTop_toTopOf="@id/salaryLabel"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvPlaces"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tvOccupation"
-                android:textColor="@color/colorPrimary"
-                android:text="@{job.placesAvailable}"
-                app:layout_constraintTop_toTopOf="@id/placesLeLabel"
-                android:textSize="14sp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_details"
+                android:layout_marginBottom="40dp"
+                android:text="Send"
+                android:textAllCaps="false"
+                android:paddingHorizontal="18dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_details"
-            android:layout_marginBottom="40dp"
-            android:text="Send"
-            android:textAllCaps="false"
-            android:paddingHorizontal="18dp" />
+    </ScrollView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -20,6 +20,7 @@ import com.example.studentaid.utils.Constants
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_accepted_requests.*
+import kotlinx.android.synthetic.main.fragment_pending.*
 import kotlinx.android.synthetic.main.fragment_refused_requests.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,23 +46,14 @@ class RefusedRequestsFragment : BaseFragment() {
         getRejectedRequests()
 
         adapter.SetOnRequestClickListener(object : RefusedRequestsAdapter.OnRequestClickListener {
-            override fun onStopClickListener(student: Student) {
+            override fun onStopClickListener(student: Student,position:Int) {
 
-                val list = arrayOf("Scholarship","Master Degree","Final exams","Research")
-                showMaterialDialog("Reason for deserve aid",list)
-                updateStudentCondition(student,Constants.CONDITION_DESERVED)
+                val list = arrayOf("He returned as a continuous student","His status has been modified")
+                showMaterialDialog(position,student,"Reason for deserve aid",list)
+
             }
 
-            override fun onIncreaseClickListener(student: Student){
-                updateStudentCondition(student,Constants.CONDITION_INCREASE)
-                sendNotification(
-                    PushNotification(Constants.Ministry_Topic,
-                    NotificationData(getString(R.string.app_name),"Please Deserve the aid for this student as his grades in final exams")
-                )
-                )
-            }
-
-            override fun onOpenClickListener(student: Student) {
+            override fun onOpenClickListener(student: Student,position:Int) {
                 val action = RefusedRequestsFragmentDirections.actionRefusedRequestsFragmentToRequestDetailsFragment(student)
                 findNavController().navigate(action)
 
@@ -81,6 +73,7 @@ class RefusedRequestsFragment : BaseFragment() {
                 }
             }
             if (studentList.size ==0) iv_refusedEmptyList.visibility = View.VISIBLE
+            else iv_refusedEmptyList.visibility = View.GONE
             adapter.changeData(studentList)
 
         }, {
@@ -90,18 +83,15 @@ class RefusedRequestsFragment : BaseFragment() {
         hideLoader()
     }
 
-    private fun updateStudentCondition(student: Student, condition:String){
+    private fun updateStudentCondition(position:Int,student: Student, condition:String){
 
         CoroutineScope(Dispatchers.IO).launch {
             StudentDao.updateStudentCondition(student.id!!, condition,
                 OnCompleteListener {
                     if (it.isSuccessful) {
-                        /*   sendNotification(
-                               PushNotification(
-                                   student.token!!,
-                                   NotificationData("Student Aid", message)
-                               )
-                           )*/
+                        studentList.removeAt(position)
+                        adapter.notifyDataSetChanged()
+
                     } else if (!it.isSuccessful) {
                         Toast.makeText(requireContext(), "Error Occurred", Toast.LENGTH_SHORT)
                             .show()
@@ -132,19 +122,22 @@ class RefusedRequestsFragment : BaseFragment() {
 
     }
 
-    private fun showMaterialDialog(title:String, list :Array<String>){
+    private fun showMaterialDialog(position: Int,student: Student,title:String, list :Array<String>){
         val items = list
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(title)
             .setItems(items) { dialog, which ->
                 // Respond to item chosen
-                //  degree.value = items[which]
+
+
                 Toast.makeText(requireContext(), items[which].toString(), Toast.LENGTH_LONG).show()
-                getRejectedRequests()
+               // getRejectedRequests()
                 //jobsList = getAppropriateJobs(items[which])
                 //showJobsList()
                 CoroutineScope(Dispatchers.IO).launch {
+                    updateStudentCondition(position,student,Constants.CONDITION_DESERVED)
+
                     sendNotification(PushNotification(Constants.Ministry_Topic,
                         NotificationData("Student Aid","please Deserve this student aid because of his ${items[which]} grades")
                     ))

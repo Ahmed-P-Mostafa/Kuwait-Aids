@@ -123,6 +123,10 @@ dependencies {
     // Material Dialog input
     implementation 'com.afollestad.material-dialogs:input:3.3.0'
 
+    // lottie animation
+    def lottieVersion = "3.6.1"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
 
 
 }

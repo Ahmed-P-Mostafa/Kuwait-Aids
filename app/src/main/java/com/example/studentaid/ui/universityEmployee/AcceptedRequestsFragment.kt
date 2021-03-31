@@ -21,8 +21,9 @@ import com.example.studentaid.data.onlineDatabase.StudentDao
 import com.example.studentaid.utils.Constants
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_accepted_requests.*
-import kotlinx.android.synthetic.main.fragment_all_requests.*
+import kotlinx.android.synthetic.main.fragment_refused_requests.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,21 +51,26 @@ class AcceptedRequestsFragment : BaseFragment(){
         rv_acceptedRequests.adapter = adapter
         getApprovedRequests()
         adapter.SetOnRequestClickListener(object : AcceptedRequestsAdapter.OnRequestClickListener {
-            override fun onStopClickListener(student: Student) {
+            override fun onStopClickListener(student: Student,position:Int) {
 
                 val list = arrayOf("withdrawal","full dismissal","partial dismissal","freezing")
-                showMaterialDialog("Reason for stop aid",list)
+                showMaterialDialog(student.id!!,"Reason for stop aid",list)
                 updateStudentCondition(student,Constants.CONDITION_STOP)
+                studentList.removeAt(position)
+                adapter.notifyDataSetChanged()
+
             }
 
-            override fun onIncreaseClickListener(student: Student){
+            override fun onIncreaseClickListener(student: Student,position:Int){
                 updateStudentCondition(student,Constants.CONDITION_INCREASE)
                 sendNotification(PushNotification(Constants.Ministry_Topic,
                     NotificationData(getString(R.string.app_name),"Please increase the aid for this student as his grades i n final exams")
                 ))
+                studentList.removeAt(position)
+                adapter.notifyDataSetChanged()
             }
 
-            override fun onOpenClickListener(student: Student) {
+            override fun onOpenClickListener(student: Student,position:Int) {
                 val action = AcceptedRequestsFragmentDirections.actionAcceptedRequestsFragmentToRequestDetailsFragment(student)
                 findNavController().navigate(action)
 
@@ -84,6 +90,7 @@ class AcceptedRequestsFragment : BaseFragment(){
                 }
             }
             if (studentList.size ==0) iv_acceptedEmptyList.visibility = View.VISIBLE
+            else iv_acceptedEmptyList.visibility = View.GONE
 
             adapter.changeData(studentList)
 
@@ -102,12 +109,7 @@ class AcceptedRequestsFragment : BaseFragment(){
             StudentDao.updateStudentCondition(student.id!!, condition,
                 OnCompleteListener {
                     if (it.isSuccessful) {
-                     /*   sendNotification(
-                            PushNotification(
-                                student.token!!,
-                                NotificationData("Student Aid", message)
-                            )
-                        )*/
+
                     } else if (!it.isSuccessful) {
                         Toast.makeText(requireContext(), "Error Occurred", Toast.LENGTH_SHORT)
                             .show()
@@ -140,21 +142,27 @@ class AcceptedRequestsFragment : BaseFragment(){
 
     }
 
-    private fun showMaterialDialog(title:String, list :Array<String>){
+    private fun showMaterialDialog(id:String,title:String, list :Array<String>){
         val items = list
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(title)
             .setItems(items) { dialog, which ->
-                // Respond to item chosen
-                //  degree.value = items[which]
+
                 Toast.makeText(requireContext(), items[which].toString(), Toast.LENGTH_LONG).show()
-                //jobsList = getAppropriateJobs(items[which])
-                //showJobsList()
                 CoroutineScope(Dispatchers.IO).launch {
-                    sendNotification(PushNotification(Constants.Ministry_Topic,
-                        NotificationData("Student Aid","please Stop this student aid because of ${items[which]} reason")
-                    ))
+
+                    StudentDao.updateStudentMessage(id,items[which], OnCompleteListener {
+                        if (it.isSuccessful){
+
+                            sendNotification(PushNotification(Constants.Ministry_Topic,
+                                NotificationData("Student Aid","please Stop this student aid because of ${items[which]} reason")
+                            ))
+                        }else{
+                            Snackbar.make(requireView(),it.exception?.localizedMessage.toString(),Snackbar.LENGTH_SHORT).show()
+                        }
+                    })
+
                 }
             }
             .setCancelable(false)

@@ -30,4 +30,9 @@ object StudentDao {
        val graduateRef= OnlineDatabase.getStudentReference().document(collectionId)
         graduateRef.update("universityDegree",universityDegree).addOnCompleteListener(onCompleteListener)
     }
+    fun updateStudentMessage(collectionId: String,message:String,onCompleteListener: OnCompleteListener<Void>){
+        val studentRef = OnlineDatabase.getStudentReference().document(collectionId)
+        studentRef.update("message",message).addOnCompleteListener(onCompleteListener)
+
+    }
 }

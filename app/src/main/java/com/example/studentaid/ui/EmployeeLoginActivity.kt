@@ -13,7 +13,9 @@ import com.example.studentaid.data.onlineDatabase.EmployeeDAO
 import com.example.studentaid.ui.ministryEmployee.MinistryHomeActivity
 import com.example.studentaid.ui.universityEmployee.UniversityMainActivity
 import com.example.studentaid.utils.Utils
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_citizen_login.*
 import kotlinx.android.synthetic.main.activity_citizen_login.etEmail
 import kotlinx.android.synthetic.main.activity_citizen_login.etPassword
@@ -34,7 +36,7 @@ class EmployeeLoginActivity : BaseActivity() {
 
 
     private fun isDataFilled():Boolean{
-        return et_email.text.toString().isNotBlank() && et_password.text.toString().isNotBlank() &&Patterns.EMAIL_ADDRESS.matcher(et_email.text.toString()).matches()
+        return et_email.text.toString().isNotBlank() && et_password.text.toString().isNotBlank() /*&&Patterns.EMAIL_ADDRESS.matcher(et_email.text.toString()).matches()*/
     }
     private fun signInAsEmployee(){
         Log.d(TAG, "signInAsEmployee: ")
@@ -47,34 +49,43 @@ class EmployeeLoginActivity : BaseActivity() {
 
                             EmployeeDAO.getEmployeeFromFirestore(
                                 task.result?.user?.uid!!,
-                                OnSuccessListener {
-                                    Log.d(TAG, "signInAsEmployee: firestore success")
-                                    val employee = it.toObject(Employee::class.java)
-                                    Log.d(TAG, "signInAsEmployee: ${employee?.title}")
-                                    Utils.saveUserToSharedPreferences(this@EmployeeLoginActivity,
-                                        Student(title = employee?.title)
-                                    )
+                                OnCompleteListener {
+                                    if (it.isSuccessful){
+                                        Log.d(TAG, "signInAsEmployee: firestore success")
+                                        val employee = it.result?.toObject(Employee::class.java)
+                                        Log.d(TAG, "signInAsEmployee: ${employee?.title}")
+                                        Utils.saveUserToSharedPreferences(this@EmployeeLoginActivity,
+                                            Student(title = employee?.title)
+                                        )
 
 
-                                    if (employee != null && employee.title == "University") {
-                                        startActivity(
-                                            Intent(
-                                                this@EmployeeLoginActivity,
-                                                UniversityMainActivity::class.java
+                                        if (employee != null && employee.title == "University") {
+                                            startActivity(
+                                                Intent(
+                                                    this@EmployeeLoginActivity,
+                                                    UniversityMainActivity::class.java
+                                                )
                                             )
-                                        )
-                                    } else if (employee != null && employee.title == "Ministry") {
-                                        startActivity(
-                                            Intent(
-                                                this@EmployeeLoginActivity,
-                                                MinistryHomeActivity::class.java
+                                            finish()
+                                        } else if (employee != null && employee.title == "Ministry") {
+                                            startActivity(
+                                                Intent(
+                                                    this@EmployeeLoginActivity,
+                                                    MinistryHomeActivity::class.java
+                                                )
                                             )
-                                        )
+                                            finish()
+                                        }
+                                    }else{
+                                        FirebaseAuth.getInstance().signOut()
+                                        showMessage("Invalid username or password")
                                     }
+
                                 })
                         }
                         else{
-                            showMessage("Authentication failed")
+                            hideLoader()
+                            showMessage("invalid username or password")
 
                         }
                     }
@@ -97,7 +108,7 @@ class EmployeeLoginActivity : BaseActivity() {
         }else{
             hideLoader()
             Log.d(TAG, "login: data not valid")
-            showMessage("missing data")
+            showMessage("Invalid username or password")
 
         }
     }

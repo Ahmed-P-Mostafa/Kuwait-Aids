@@ -74,6 +74,7 @@ class HomeGraduateActivity : BaseActivity() {
             Utils.logOutUserFromSharedPreefrences(this)
             auth.signOut()
             startActivity(Intent(this, LandingActivity::class.java))
+            finish()
 
         },negButton = "No",negAction = { dialogInterface: DialogInterface, i: Int ->
             dialogInterface.dismiss()

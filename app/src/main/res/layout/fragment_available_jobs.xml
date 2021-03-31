@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.graduate.AvailableJobsFragment"
-    android:paddingHorizontal="8dp">
+    android:paddingHorizontal="8dp"
+    android:orientation="vertical">
+   <com.google.android.material.textfield.TextInputLayout
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       app:boxBackgroundMode="outline"
+       android:layout_marginVertical="4dp"
+       app:endIconMode="dropdown_menu">
+
+      <AutoCompleteTextView
+          android:id="@+id/et_certificate"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Determine your university degree"
+          android:paddingHorizontal="16dp"
+          android:paddingVertical="2dp"
+          android:inputType="none"
+          />
+   </com.google.android.material.textfield.TextInputLayout>
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/graduateJobsRecyclerView"
@@ -15,4 +35,4 @@
        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
        android:orientation="vertical"/>
 
-</FrameLayout>
+</LinearLayout>

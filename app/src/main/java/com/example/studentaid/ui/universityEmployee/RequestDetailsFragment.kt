@@ -36,9 +36,10 @@ class RequestDetailsFragment : Fragment() {
         Log.d(TAG, "onCreateView: ")
         // Inflate the layout for this fragment
         val binding:FragmentRequestDetailsBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_request_details,container,false)
-      //  binding.p = args.student
+       binding.p = args.st
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "onViewCreated: ")
@@ -55,6 +56,7 @@ class RequestDetailsFragment : Fragment() {
             }else{
                 updateStudentCondition(Constants.CONDITION_APPROVED)
             }
+
         }
         btn_refuse.setOnClickListener {
             updateStudentCondition(Constants.CONDITION_REJECTED)
@@ -83,20 +85,15 @@ class RequestDetailsFragment : Fragment() {
                                 NotificationData("Student Aid", message)
                             )
                         )
-                        Toast.makeText(
-                            requireContext(),
-                            "Request Approved Successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (!it.isSuccessful) {
-                        Toast.makeText(requireContext(), "Error Occurred", Toast.LENGTH_SHORT)
-                            .show()
-                        Log.d(TAG, "updateStudentCondition: ${it.exception}")
 
+                    } else if (!it.isSuccessful) {
+
+                        Log.e(TAG, "updateStudentCondition: ${it.exception?.localizedMessage}")
                     }
                 }
             )
         }
+        findNavController().navigateUp()
 
     }
     private fun sendNotification(notification: PushNotification) {

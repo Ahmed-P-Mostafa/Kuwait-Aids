@@ -23,13 +23,12 @@ class SplashActivity : AppCompatActivity() {
 
         val handler = Handler().postDelayed(Runnable {
             isUserLoggedIn()
+            finish()
         },3000)
 
 
     }
     fun isUserLoggedIn(){
-        //TODO check for Employees also
-
         val sp = getSharedPreferences(Constants.PERSON_SHARED_PREFRENCES_FILE_NAME, Context.MODE_PRIVATE)
 
         if (!sp.getBoolean(Constants.IS_USER_SIGNED_IN,false)){

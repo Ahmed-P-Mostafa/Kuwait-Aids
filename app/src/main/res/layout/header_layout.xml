@@ -6,33 +6,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="18dp"
     android:backgroundTint="@android:color/white">
-    <ImageView
-        android:id="@+id/iv_header_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/rounded"
-        app:layout_constraintEnd_toStartOf="@id/tv_header_name"
-        />
+
     <TextView
         android:id="@+id/tv_header_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/iv_header_image"
-        app:layout_constraintTop_toTopOf="@id/iv_header_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tv_header_email"
         android:layout_marginStart="20dp"
-        android:text="Ahmed Mostafa"
+        android:text=""
         />
     <TextView
         android:id="@+id/tv_header_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/tv_header_name"
-        app:layout_constraintBottom_toBottomOf="@id/iv_header_image"
         app:layout_constraintTop_toBottomOf="@id/tv_header_name"
-        android:text="Example.Email@gmail.com"/>
+        android:layout_marginTop="4dp"
+        android:text=""/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

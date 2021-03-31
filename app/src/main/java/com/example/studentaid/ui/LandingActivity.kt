@@ -18,22 +18,25 @@ class LandingActivity : AppCompatActivity() {
 
         btnStudent.setOnClickListener {
             startActivity(Intent(this,RegisterStudentActivity::class.java))
+            finish()
         }
-        btnMinyEmployee.setOnClickListener {
+  /*      btnMinyEmployee.setOnClickListener {
             startActivity(Intent(this,SignupMinistryActivity::class.java))
 
         }
         btnUniEmployee.setOnClickListener {
             startActivity(Intent(this,UniversitySignupActivity::class.java))
-        }
+        }*/
     }
 
     fun citizenLogin(view: View) {
         startActivity(Intent(this,CitizenLoginActivity::class.java))
+        finish()
 
     }
     fun employeeLogin(view: View) {
         startActivity(Intent(this,EmployeeLoginActivity::class.java))
+        finish()
 
     }
 }

@@ -40,7 +40,7 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="4dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="@string/hello_friend" />
+            android:text="@string/hello_Student" />
 
         <TextView
             android:id="@+id/tvInstructions"
@@ -222,7 +222,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/cardNumber"
+                        android:hint="@string/civilId"
                         app:boxCornerRadiusBottomEnd="16dp"
                         app:boxCornerRadiusBottomStart="16dp"
                         app:boxCornerRadiusTopEnd="16dp"

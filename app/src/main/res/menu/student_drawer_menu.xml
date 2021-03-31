@@ -2,36 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <group
-       >
+
         <item android:id="@+id/followStudentRequestFragment"
             android:title="Follow up on your request"
             android:icon="@drawable/ic_follow_request"/>
-        <item android:id="@+id/notificationsFragment"
-            android:title="Notifications"
-            android:icon="@drawable/ic_notifications"/>
 
-        <item android:id="@+id/aboutFragment"
-            android:title="About"
-            android:icon="@drawable/ic_about"
-            android:onClick="about"/>
-    </group>
+        <item android:id="@+id/logout"
+            android:onClick="logout"
+            android:title="Log out"
+            android:icon="@drawable/ic_logout"/>
 
-
-        <item android:title="Settings">
-            <menu>
-                <item android:id="@+id/settingsFragment"
-                    android:icon="@drawable/ic_settings"
-                    android:title="Settings"
-                    android:onClick="settings"/>
-                <item android:id="@+id/logout"
-                    android:onClick="logout"
-                    android:title="Log out"
-                    android:icon="@drawable/ic_logout"/>
-            </menu>
-
-
-        </item>
 
 
 

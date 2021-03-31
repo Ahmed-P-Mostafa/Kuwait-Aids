@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">StudentAid</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_your_registration_recipe_and_your_application">choose your registration recipe and your application</string>
     <string name="student">Student</string>
@@ -12,10 +11,10 @@
     <string name="last_name">Last name *</string>
     <string name="sign_up">Sign Up</string>
     <string name="hello_friend">Hello Friend,</string>
-    <string name="cardNumber">ID Card number *</string>
+    <string name="civilId">Civil id *</string>
     <string name="passport">Passport *</string>
     <string name="gender">Gender *</string>
-    <string name="universityNumber">University number *</string>
+    <string name="universityNumber">Student id *</string>
     <string name="email">Email address *</string>
     <string name="phoneNumber">phone number *</string>
     <string name="nationality">Nationality *</string>
@@ -53,4 +52,5 @@
     <string name="notification_channel_name">Kuwait Aid</string>
     <string name="notification_channel_description">Kuwait Social solidarity Ministry app</string>
     <string name="accept">Accept</string>
+    <string name="hello_Student">Hello Student</string>
 </resources>

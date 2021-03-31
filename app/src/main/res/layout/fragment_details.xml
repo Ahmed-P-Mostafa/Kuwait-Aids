@@ -31,6 +31,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.7" />
+            <TextView
+                android:id="@+id/tv_requestHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tilFirstName"
+                tools:text="Please Accept increasing request for this student"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginBottom="8dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilFirstName"
@@ -40,6 +52,7 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/first_name"
                 app:boxBackgroundMode="filled"
                 android:paddingHorizontal="8dp"
@@ -50,7 +63,7 @@
                 app:layout_constraintEnd_toStartOf="@id/tilLastName"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_requestHeader"
                 app:layout_constraintBottom_toTopOf="@id/linear">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -154,7 +167,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/cardNumber"
+                    android:hint="@string/civilId"
                     app:boxCornerRadiusBottomEnd="16dp"
                     app:boxCornerRadiusBottomStart="16dp"
                     app:boxCornerRadiusTopEnd="16dp"
@@ -329,6 +342,7 @@
                         android:id="@+id/etTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{p.title}"
                         android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 

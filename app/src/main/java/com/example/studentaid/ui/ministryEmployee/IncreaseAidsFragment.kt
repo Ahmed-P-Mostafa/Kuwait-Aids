@@ -62,7 +62,8 @@ class IncreaseAidsFragment : BaseFragment() {
             }
             if (studentList.size==0){
                 iv_increaseEmptyList.visibility = View.VISIBLE
-            }
+            }else iv_increaseEmptyList.visibility = View.GONE
+
             adapter.changeData(studentList)
 
         }, {

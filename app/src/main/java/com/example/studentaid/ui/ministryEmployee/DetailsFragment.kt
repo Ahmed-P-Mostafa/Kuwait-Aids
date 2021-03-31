@@ -31,6 +31,7 @@ import java.lang.Exception
 class DetailsFragment : BaseFragment() {
     val args :DetailsFragmentArgs by navArgs()
     private val TAG = "DetailsFragment"
+    lateinit var binding : FragmentDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,19 +39,22 @@ class DetailsFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this
 
-        val binding : FragmentDetailsBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_details,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_details,container,false)
         binding.p = args.student
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val message =""
+        headerText()
 
         btn_accept.setOnClickListener {
             if (args.student.condition==Constants.CONDITION_STOP){
                 Log.d(TAG, "onViewCreated: accept button and condition Stop")
                 updateStudentCondition(Constants.CONDITION_REJECTED)
+                //showAmountDialog(args.student.token!!,requireContext())
+                sendNotification(PushNotification(args.student.token!!, NotificationData(title = "Kuwait Aid","The financial aid has been stopped because you are no longer a student at the university, and if there is something wrong, please refer to the Ministry of Higher Education according to the working hours")))
+                findNavController().navigateUp()
 
             }else if (args.student.condition==Constants.CONDITION_DESERVED){
                 updateStudentCondition(Constants.CONDITION_APPROVED)
@@ -62,24 +66,32 @@ class DetailsFragment : BaseFragment() {
                 showAmountDialog(args.student.token!!,requireContext())
                 Log.d(TAG, "onViewCreated: accept button and condition increasee")
 
+            }else if (args.student.condition==Constants.CONDITION_PENDING){
+                updateStudentCondition(Constants.CONDITION_APPROVED)
+                showAmountDialog(args.student.token!!,requireContext())
+                Log.d(TAG, "onViewCreated: accept button and condition increasee")
+
             }
 
         }
         btn_refuse.setOnClickListener {
             if (args.student.condition==Constants.CONDITION_STOP){
                 updateStudentCondition(Constants.CONDITION_APPROVED)
+                showAmountDialog(args.student.token!!,requireContext())
                 Log.d(TAG, "onViewCreated: refuse button and condition desereved")
-
-
             }else if (args.student.condition==Constants.CONDITION_DESERVED){
                 Log.d(TAG, "onViewCreated: refuse button and condition Stop")
-
                 updateStudentCondition(Constants.CONDITION_REJECTED)
                 showAmountDialog(args.student.token!!,requireContext())
             }else if (args.student.condition==Constants.CONDITION_INCREASE){
                 updateStudentCondition(Constants.CONDITION_APPROVED)
                 showAmountDialog(args.student.token!!,requireContext())
                 Log.d(TAG, "onViewCreated: refuse button and condition increase")
+
+            }else if (args.student.condition==Constants.CONDITION_PENDING){
+                updateStudentCondition(Constants.CONDITION_REJECTED)
+                showAmountDialog(args.student.token!!,requireContext())
+                Log.d(TAG, "onViewCreated: accept button and condition increasee")
 
             }
 
@@ -89,9 +101,12 @@ class DetailsFragment : BaseFragment() {
                findNavController().navigate(action)
         }
     }
-    private fun showAmountDialog(to:String,context: Context){
-       val dialog =  MaterialDialog(context).title(text = "Enter message").positiveButton(R.string.send).input { materialDialog, charSequence ->
-           sendNotification(PushNotification(to, NotificationData(getString(R.string.app_name),charSequence.toString())))
+    private fun showAmountDialog(to:String?,context: Context){
+       val dialog =  MaterialDialog(context).title(text = "Enter notification message").positiveButton(R.string.send).input { materialDialog, charSequence ->
+           if (to!=null){
+               sendNotification(PushNotification(to, NotificationData(getString(R.string.app_name),charSequence.toString())))
+
+           }
            findNavController().navigateUp()
 
        }
@@ -114,6 +129,19 @@ class DetailsFragment : BaseFragment() {
               )
         }
 
+    }
+    private fun headerText(){
+        if (args.student.condition ==Constants.CONDITION_DESERVED){
+            binding.tvRequestHeader.visibility = View.VISIBLE
+            binding.tvRequestHeader.text = "Please accept aid for this student after modified his condition"
+        }else if (args.student.condition ==Constants.CONDITION_INCREASE){
+            binding.tvRequestHeader.visibility = View.VISIBLE
+            binding.tvRequestHeader.text = "Please accept increase aid for this student as per his Academically superior"
+        }
+        else if (args.student.condition ==Constants.CONDITION_STOP){
+            binding.tvRequestHeader.visibility = View.VISIBLE
+            binding.tvRequestHeader.text = "Please stop aid for this student as per ${args.student.message}"
+        }
     }
 
     private fun sendNotification(notification: PushNotification) {

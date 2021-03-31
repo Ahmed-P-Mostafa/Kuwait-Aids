@@ -54,7 +54,8 @@ open class BaseActivity : AppCompatActivity() {
             .setMessage(textt)
             .setPositiveButton("ok") { dialogInterface, i ->
                 dialogInterface.dismiss()
-            }.show()
+            }.setCancelable(true)
+            .show()
     }
     fun hideMessage(){
         dialog?.dismiss()

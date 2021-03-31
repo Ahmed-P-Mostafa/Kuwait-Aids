@@ -13,20 +13,10 @@ import com.afollestad.materialdialogs.input.input
 import com.example.studentaid.R
 import com.example.studentaid.adapters.RequestsAdapter
 import com.example.studentaid.base.BaseFragment
-import com.example.studentaid.data.models.NotificationData
-import com.example.studentaid.data.models.PushNotification
 import com.example.studentaid.data.models.Student
-import com.example.studentaid.data.onlineDatabase.Client
 import com.example.studentaid.data.onlineDatabase.EmployeeDAO
-import com.example.studentaid.ui.universityEmployee.AllRequestsFragmentDirections
 import com.example.studentaid.utils.Constants
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.fragment_all_requests.*
 import kotlinx.android.synthetic.main.fragment_suspended.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.lang.Exception
 
 
 class SuspendedFragment : BaseFragment() {
@@ -74,7 +64,7 @@ class SuspendedFragment : BaseFragment() {
             }
             if (studentList.size==0){
                 iv_suspendedEmptyList.visibility = View.VISIBLE
-            }
+            }else  iv_suspendedEmptyList.visibility = View.GONE
             adapter.changeData(studentList)
 
         }, {

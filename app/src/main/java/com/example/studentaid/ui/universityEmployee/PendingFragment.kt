@@ -2,30 +2,17 @@ package com.example.studentaid.ui.universityEmployee
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.studentaid.R
-import com.example.studentaid.adapters.AcceptedRequestsAdapter
 import com.example.studentaid.adapters.RequestsAdapter
 import com.example.studentaid.base.BaseFragment
-import com.example.studentaid.data.models.PushNotification
 import com.example.studentaid.data.models.Student
-import com.example.studentaid.data.onlineDatabase.Client
 import com.example.studentaid.data.onlineDatabase.EmployeeDAO
-import com.example.studentaid.data.onlineDatabase.StudentDao
 import com.example.studentaid.utils.Constants
-import com.google.android.gms.tasks.OnCompleteListener
-import kotlinx.android.synthetic.main.fragment_accepted_requests.*
 import kotlinx.android.synthetic.main.fragment_pending.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.lang.Exception
-
 
 class PendingFragment : BaseFragment() {
     private val TAG = "PendingFragment"
@@ -69,6 +56,7 @@ class PendingFragment : BaseFragment() {
                 }
             }
             if (studentList.size ==0) iv_pendingEmptyList.visibility = View.VISIBLE
+            else iv_pendingEmptyList.visibility = View.GONE
 
             adapter.changeData(studentList)
 

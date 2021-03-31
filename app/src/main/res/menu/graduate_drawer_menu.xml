@@ -13,10 +13,7 @@
         android:id="@+id/professionalDegreeFragment"
         android:title="Professional Degree"
         android:icon="@drawable/ic_bag"/>
-    <item
-        android:id="@+id/notification"
-        android:title="Notifications"
-        android:icon="@drawable/ic_notifications"/>
+
     <item
         android:id="@+id/logout"
         android:title="Log out"

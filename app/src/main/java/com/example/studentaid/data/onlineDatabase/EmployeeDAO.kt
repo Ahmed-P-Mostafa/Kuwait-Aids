@@ -14,8 +14,8 @@ object EmployeeDAO {
 
         OnlineDatabase.getEmployeeReference().document(employee.id!!).set(employee).addOnCompleteListener(onCompleteListener)
     }
-    fun getEmployeeFromFirestore(studentId:String, onSuccessListener: OnSuccessListener<DocumentSnapshot>){
-        val studentRef = OnlineDatabase.getEmployeeReference().document(studentId).get().addOnSuccessListener(onSuccessListener)
+    fun getEmployeeFromFirestore(studentId:String, onSuccessListener: OnCompleteListener<DocumentSnapshot>){
+        val studentRef = OnlineDatabase.getEmployeeReference().document(studentId).get().addOnCompleteListener(onSuccessListener)
 
     }
     fun getAllStudentsRequests(onSuccessListener: OnSuccessListener<QuerySnapshot>,onFailureListener: OnFailureListener){

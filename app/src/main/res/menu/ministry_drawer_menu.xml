@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/newRequestsFragment"
+        android:title="New Requests"
+        android:icon="@drawable/ic_follow_request"
+        />
+
     <item
         android:id="@+id/increaseAidsFragment"
         android:title="Increasing Requests"
@@ -18,11 +25,6 @@
         android:icon="@drawable/ic_follow_request"
         />
 
-    <item
-        android:id="@+id/notification"
-        android:title="Notifications"
-        android:icon="@drawable/ic_notifications"
-        />
     <item
         android:id="@+id/logout"
         android:title="Log out"

@@ -10,9 +10,5 @@
         android:name="com.example.studentaid.ui.student.FollowStudentRequestFragment"
         android:label="Follow up request"
         tools:layout="@layout/fragment_follow_student_request" />
-    <fragment
-        android:id="@+id/notificationsFragment"
-        android:name="com.example.studentaid.ui.student.NotificationsFragment"
-        android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
+
 </navigation>

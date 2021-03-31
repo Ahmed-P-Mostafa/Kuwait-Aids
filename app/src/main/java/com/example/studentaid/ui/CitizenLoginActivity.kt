@@ -13,6 +13,8 @@ import com.example.studentaid.ui.student.HomeStudentActivity
 import com.example.studentaid.utils.Constants
 import com.example.studentaid.utils.Utils
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_citizen_login.*
 
 class CitizenLoginActivity : BaseActivity() {
@@ -22,9 +24,9 @@ class CitizenLoginActivity : BaseActivity() {
     }
 
     fun Login(view: View) {
-        showLoader("Loading...")
         if (isDataFilled()){
-           when(radioGroup.checkedRadioButtonId){
+            showLoader("Loading...")
+            when(radioGroup.checkedRadioButtonId){
                R.id.rbStudent->{
                    signInAsStudent()
                }
@@ -32,54 +34,80 @@ class CitizenLoginActivity : BaseActivity() {
                    signInAdGraduate()
                }
            }
+        }else{
+            showMessage("Invalid username or password")
         }
-        hideLoader()
     }
     private fun isDataFilled():Boolean{
         return !(etEmail.text.toString().isNullOrBlank()||etPassword.text.toString().isNullOrBlank())
     }
     private fun signInAsStudent(){
-        auth.signInWithEmailAndPassword(etEmail.text.toString(),etPassword.text.toString()).addOnCompleteListener {
-            if (it.isSuccessful){
-                val student = StudentDao.getStudentFromFireStore(it.result?.user?.uid!!,
-                    OnSuccessListener {
-                        val student = it.toObject(Student::class.java)
+        auth.signInWithEmailAndPassword(etEmail.text.toString(),etPassword.text.toString()).addOnSuccessListener {result->
+
+
+                val student = StudentDao.getStudentFromFireStore(result.user?.uid!!,
+                    OnSuccessListener {document->
+                        val student = document.toObject(Student::class.java)
                         if (student?.title =="Student"){
-                            if (student.condition!=Constants.CONDITION_NULL){
-                                Utils.saveUserToSharedPreferences(this,student!!)
-                                startActivity(Intent(this,HomeStudentActivity::class.java))
+                            if (student.nationality=="Kuwaiti"||student.motherNationality=="Kuwaiti"){
+                                if (student.condition!=Constants.CONDITION_NULL){
+                                    Utils.saveUserToSharedPreferences(this,student)
+                                    startActivity(Intent(this,HomeStudentActivity::class.java))
+                                    finish()
+                                }else{
+                                    hideLoader()
+                                    showMessage("Your account not activated yet")
+                                    auth.signOut()
+                                }
                             }else{
-                                showMessage("Your account not activated yet")
+                                hideLoader()
                                 auth.signOut()
+                                Toast.makeText(this,"Sorry you're not eligible to proceed",Toast.LENGTH_SHORT).show()
                             }
 
+
                         }else{
+                            hideLoader()
+                            auth.signOut()
                             Toast.makeText(this,"Not Student Account",Toast.LENGTH_SHORT).show()
                         }
 
                     })
-            }else{
-                showMessage("Sign in failed")
 
-            }
+        }.addOnFailureListener {
+            hideLoader()
+            showMessage("Invalid username or password")
         }
     }
+    // TODO handle loader
     private fun signInAdGraduate(){
-        auth.signInWithEmailAndPassword(etEmail.text.toString(),etPassword.text.toString()).addOnCompleteListener {
-            if (it.isSuccessful){
-                StudentDao.getStudentFromFireStore(it.result?.user?.uid!!,
-                    OnSuccessListener {
-                       val student = it.toObject(Student::class.java)
+        auth.signInWithEmailAndPassword(etEmail.text.toString(),etPassword.text.toString()).addOnCompleteListener {result->
+            if (result.isSuccessful){
+                StudentDao.getStudentFromFireStore(result.result?.user?.uid!!,
+                    OnSuccessListener {document->
+                       val student = document.toObject(Student::class.java)
                        if (student?.title== "Graduate"){
-                           Utils.saveUserToSharedPreferences(this,student)
-                           startActivity(Intent(this,HomeGraduateActivity::class.java))
+                           if(student.nationality=="Kuwaiti"){
+                               Utils.saveUserToSharedPreferences(this,student)
+                               startActivity(Intent(this,HomeGraduateActivity::class.java))
+                               finish()
+                           }else{
+                               hideLoader()
+                               FirebaseAuth.getInstance().signOut()
+                               Toast.makeText(this,"Sorry you're not eligible to proceed",Toast.LENGTH_SHORT).show()
+                           }
                        }else{
+                           hideLoader()
+                           FirebaseAuth.getInstance().signOut()
                            Toast.makeText(this,"Not Graduate Account",Toast.LENGTH_SHORT).show()
 
                        }
                    })
            }else{
-               showMessage("Sign in failed")
+               hideLoader()
+
+                FirebaseAuth.getInstance().signOut()
+                showMessage("Invalid username or password")
            }
        }
 
