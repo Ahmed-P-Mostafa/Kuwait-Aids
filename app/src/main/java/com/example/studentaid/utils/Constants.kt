@@ -42,7 +42,7 @@ object Constants {
     const val University_Topic = "University"
     const val Ministry_Topic = "Ministry"
 
-    const val Server_key = "AAAA-EJELHg:APA91bHZiVWhAxYSfC6XxyU1aQ0RHkiMn0WJ93evjDe-R3eElRr1DfWHbJIQ-C9bsaKqajCTgRrEBvRytd8jyu_B0TEVU_p0oDm3Ts2dqFotBPM5npS-jtKGvgi8U--XA0sL9Av3BSn9"
+    const val Server_key = "YOUR_API_KEY"
     object token{
 
         val sharedPref : SharedPreferences?=null
